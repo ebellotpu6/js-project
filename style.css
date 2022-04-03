@@ -1,5 +1,150 @@
+*{
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+}
+
 #board {
   height: 100vh;
   width: 100vw;
-  background-color: green;
+  background: linear-gradient(45deg, rgb(41, 146, 82) 12%, transparent 0, transparent 88%, rgb(38, 150, 71) 0),
+    linear-gradient(135deg, transparent 37%, rgb(33, 141, 57) 0, rgb(38, 153, 77) 63%, transparent 0),
+    linear-gradient(45deg, transparent 37%, rgb(24, 94, 42) 0, rgb(26, 167, 73) 63%, transparent 0) rgb(23, 156, 79);
+    background-size: 5px 5px;
+}
+
+#board ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  width: 100%;
+  margin: 0 20px;
+  padding: 0;
+}
+
+.card {
+  background-color: #ffffff;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5%;
+}
+
+.card > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  height: 8.5rem;
+  width: 5rem;
+  padding: 2px 5px;
+  outline: 1px solid #111111;
+}
+
+.card > div[suit="espases"]::before, .card > div[suit="espases"]::after , .card > div[suit="espases"] > div::before, .card > div[suit="espases"] > div::after{
+  content: "";
+  position: absolute;
+  height: 3px;
+  width: calc(100%/5);
+  background-color: #ffffff;
+}
+
+.card > div[suit="espases"]::before {
+  top: -2px;
+  left: calc(100%/5);
+}
+
+.card > div[suit="espases"]::after {
+  top: -2px;
+  left: calc(3*(100%/5));
+}
+
+.card > div[suit="espases"] > div::before {
+  bottom: -2px;
+  left: calc(100%/5);
+}
+
+.card > div[suit="espases"] > div::after {
+  bottom: -2px;
+  left: calc(3*(100%/5));
+}
+
+.card > div[suit="bastos"]::before, .card > div[suit="bastos"]::after, .card > div[suit="bastos"] > .card-content::before, .card > div[suit="bastos"] > .card-content::after, .card > div[suit="bastos"] > .card-border:before, .card > div[suit="bastos"] > .card-border:after{
+  content: "";
+  position: absolute;
+  height: 3px;
+  width: calc(100%/7);
+  background-color: #ffffff;
+}
+
+.card > div[suit="bastos"]::before {
+  top: -2px;
+  left: calc(100%/7);
+}
+
+.card > div[suit="bastos"]::after {
+  top: -2px;
+  left: calc(3*(100%/7));
+}
+
+.card > div[suit="bastos"] > .card-content::before {
+  top: -2px;
+  left: calc(5*(100%/7));
+}
+
+.card > div[suit="bastos"] > .card-content::after {
+  bottom: -2px;
+  left: calc(100%/7);
+}
+
+.card > div[suit="bastos"] > .card-border::before {
+  bottom: -2px;
+  left: calc(3*(100%/7));
+}
+
+.card > div[suit="bastos"] > .card-border::after {
+  bottom: -2px;
+  left: calc(5*(100%/7));
+}
+
+.card > div[suit="copes"]::before, .card > div[suit="copes"]::after{
+  content: "";
+  position: absolute;
+  height: 3px;
+  width: calc(100%/3);
+  background-color: #ffffff;
+}
+
+.card > div[suit="copes"]::before {
+  top: -2px;
+  left: calc(100%/3);
+}
+
+.card > div[suit="copes"]::after {
+  bottom: -2px;
+  left: calc(100%/3);
+}
+
+.card > div > .card-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card > div > span {
+  display: flex;
+  align-items: center;
+}
+
+.card > div > span:nth-child(3), .card > div[suit="bastos"] > span:nth-child(4) {
+  align-self: end;
+  transform: rotate(180deg);
+}
+
+.card > div > .card-content > img {
+  height: 2rem;
+  width: auto;
 }
