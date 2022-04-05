@@ -39,9 +39,12 @@ body{
   position: relative;
   height: 8.5rem;
   width: 5rem;
-  padding: 2px 5px;
+  padding: .2rem .5rem;
   outline: 1px solid #111111;
 }
+
+
+/* ------------ BORDER OF CARDS ------------ */
 
 .card > div[suit="espases"]::before, .card > div[suit="espases"]::after , .card > div[suit="espases"] > div::before, .card > div[suit="espases"] > div::after{
   content: "";
@@ -127,6 +130,8 @@ body{
   left: calc(100%/3);
 }
 
+/* ------------ --------------- ------------ */
+
 .card > div > .card-content {
   flex: 1;
   display: flex;
@@ -135,16 +140,34 @@ body{
 }
 
 .card > div > span {
-  display: flex;
-  align-items: center;
+  position: absolute;
+}
+
+.card > div > span:nth-child(1), .card > div[suit="bastos"] > span:nth-child(2) {
+  top: 0;
+  left: 2px;
 }
 
 .card > div > span:nth-child(3), .card > div[suit="bastos"] > span:nth-child(4) {
-  align-self: end;
+  bottom: 0;
+  right: 2px;
   transform: rotate(180deg);
 }
 
-.card > div > .card-content > img {
-  height: 2rem;
-  width: auto;
+.card-content > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 8.5rem;
+  width: 5rem;
 }
+
+.card-content > div > img {
+  height: auto;
+  width: 100%;
+  margin: 0 0.1rem;
+}
+
+
+/* ------------ ------------ ------------ */
