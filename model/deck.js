@@ -1,12 +1,11 @@
 import { Card } from "./card";
 
 const Suits = ["oros","copes","espases","bastos"];
-const Values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+const Numbers = [1, 2, 3, 4, 5, 6, 7, 10, 11, 12];
 
 export class Deck {
     constructor(cards = freshDeck()){
         this._cards = cards;
-
     }
 
     get cards() {
@@ -24,9 +23,9 @@ export class Deck {
     shuffle(){
         for(let i = this.numberOfCards - 1; i > 0; i--) {
             const newIndex = Math.floor(Math.random() * (i + 1));
-            const oldValue = this._cards[newIndex];
+            const oldIndex = this._cards[newIndex];
             this._cards[newIndex] = this._cards[i];
-            this._cards[i] = oldValue;
+            this._cards[i] = oldIndex;
         }
     }
 }
@@ -34,8 +33,8 @@ export class Deck {
 //Function that creates a new Deck of cards.
 function freshDeck() {
     return Suits.flatMap(suit => {
-        return Values.map(value => {
-            return new Card(suit, value)
+        return Numbers.map(number => {
+            return new Card(suit, number)
         });
     });
 }

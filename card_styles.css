@@ -2,21 +2,21 @@
 
 /* 2, 3 ESPASES & 2, 3 BASTOS */
 
-.card-content > div[suit="espases"][value="2"] > img, .card-content > div[suit="bastos"][value="2"] > img {
+.card-content > div[suit="espases"][number="2"] > img, .card-content > div[suit="bastos"][number="2"] > img {
     height: auto;
     width: calc(50% - 0.2rem);
   }
   
-  .card-content > div[suit="bastos"] > img:nth-child(2n), .card-content > div[suit="espases"][value="2"] > img:nth-child(2n), .card-content > div[suit="espases"][value="3"] > img:nth-child(2n) {
+  .card-content > div[suit="bastos"] > img:nth-child(2n), .card-content > div[suit="espases"][number="2"] > img:nth-child(2n), .card-content > div[suit="espases"][number="3"] > img:nth-child(2n) {
     transform: rotate(180deg);
   }
   
-  .card-content > div[suit="oros"][value="2"] > img, .card-content > div[suit="copes"][value="2"] > img {
+  .card-content > div[suit="oros"][number="2"] > img, .card-content > div[suit="copes"][number="2"] > img {
     height: 40%;
     width: auto;
   }
   
-  .card-content > div[value="3"] > img {
+  .card-content > div[number="3"] > img {
     height: auto;
     width: calc(33.3% - 0.2rem);
   }
@@ -25,29 +25,29 @@
   
   /* 3 OROS */
   
-  .card-content > div[suit="oros"][value="3"] {
+  .card-content > div[suit="oros"][number="3"] {
     position: relative;
     justify-content: flex-start;
   }
   
-  .card-content > div[suit="oros"][value="3"] > img {
+  .card-content > div[suit="oros"][number="3"] > img {
     position: absolute;
     height: auto;
-    width: calc(70% - 0.2rem);
+    width: calc(65% - 0.2rem);
   }
   
-  .card-content > div[suit="oros"][value="3"] > img:nth-child(1) {
-    top: 2%;
+  .card-content > div[suit="oros"][number="3"] > img:nth-child(1) {
+    top: 5%;
     left: 0;
   }
   
-  .card-content > div[suit="oros"][value="3"] > img:nth-child(2) {
-    top: 33.3%;
+  .card-content > div[suit="oros"][number="3"] > img:nth-child(2) {
+    top: 35%;
     right: 0;
   }
   
-  .card-content > div[suit="oros"][value="3"] > img:nth-child(3) {
-    top: 66.6%;
+  .card-content > div[suit="oros"][number="3"] > img:nth-child(3) {
+    bottom: 5%;
     left: 0;
   }
   
@@ -55,28 +55,28 @@
   
   /* 3 COPES */
   
-  .card-content > div[suit="copes"][value="3"] {
+  .card-content > div[suit="copes"][number="3"] {
     position: relative;
     justify-content: flex-start;
   }
   
-  .card-content > div[suit="copes"][value="3"] > img {
+  .card-content > div[suit="copes"][number="3"] > img {
     position: absolute;
     height: 33.3%;
     width: auto;
   }
   
-  .card-content > div[suit="copes"][value="3"] > img:nth-child(1) {
+  .card-content > div[suit="copes"][number="3"] > img:nth-child(1) {
     top: 2%;
     left: 0;
   }
   
-  .card-content > div[suit="copes"][value="3"] > img:nth-child(2) {
+  .card-content > div[suit="copes"][number="3"] > img:nth-child(2) {
     top: calc(102%/3);
     right: 0;
   }
   
-  .card-content > div[suit="copes"][value="3"] > img:nth-child(3) {
+  .card-content > div[suit="copes"][number="3"] > img:nth-child(3) {
     bottom: 2%;
     left: 0;
   }
@@ -85,14 +85,14 @@
   
   /* 4 OROS & 4 COPES */
   
-  .card-content > div[suit="oros"][value="4"], .card-content > div[suit="copes"][value="4"] {
+  .card-content > div[suit="oros"][number="4"], .card-content > div[suit="copes"][number="4"] {
     position: relative;
     justify-content: space-between;
     align-content: space-between;
     padding: .25rem 0;
   }
   
-  .card-content > div[suit="oros"][value="4"]::before {
+  .card-content > div[suit="oros"][number="4"]::before {
     content: "MAS REYNALS";
     position: absolute;
     top: 35%;
@@ -102,7 +102,7 @@
     color: red;
   }
   
-  .card-content > div[suit="oros"][value="4"]::after {
+  .card-content > div[suit="oros"][number="4"]::after {
     content: "VARITEMAS S.L.";
     position: absolute;
     top: 60%;
@@ -112,7 +112,7 @@
     color: black;
   }
   
-  .card-content > div[suit="copes"][value="4"]::before {
+  .card-content > div[suit="copes"][number="4"]::before {
     content: "NAIPE";
     position: absolute;
     top: 42.5%;
@@ -122,7 +122,7 @@
     color: rgba(105, 186, 192, 0.859);
   }
   
-  .card-content > div[suit="copes"][value="4"]::after {
+  .card-content > div[suit="copes"][number="4"]::after {
     content: "OPACO MARFIL";
     position: absolute;
     top: 50%;
@@ -132,7 +132,7 @@
     color: rgba(105, 186, 192, 0.859);
   }
   
-  .card-content > div[suit="oros"][value="4"] > img, .card-content > div[suit="copes"][value="4"] > img  {
+  .card-content > div[suit="oros"][number="4"] > img, .card-content > div[suit="copes"][number="4"] > img  {
     height: auto;
     width: calc(50% - 0.2rem);
   }
@@ -141,29 +141,29 @@
   
   /* 4 ESPASES */
   
-  .card-content > div[suit="espases"][value="4"] {
+  .card-content > div[suit="espases"][number="4"] {
     justify-content: space-evenly;
     align-content: center;
   }
   
-  .card-content > div[suit="espases"][value="4"] > img {
+  .card-content > div[suit="espases"][number="4"] > img {
     height: auto;
     width: calc(33.5% - 0.2rem);
   }
   
-  .card-content > div[suit="espases"][value="4"] > img:nth-child(1) {
+  .card-content > div[suit="espases"][number="4"] > img:nth-child(1) {
     transform: rotate(155deg);
   }
   
-  .card-content > div[suit="espases"][value="4"] > img:nth-child(2) {
+  .card-content > div[suit="espases"][number="4"] > img:nth-child(2) {
     transform: rotate(205deg);
   }
   
-  .card-content > div[suit="espases"][value="4"] > img:nth-child(3) {
+  .card-content > div[suit="espases"][number="4"] > img:nth-child(3) {
     transform: rotate(25deg);
   }
   
-  .card-content > div[suit="espases"][value="4"] > img:nth-child(4) {
+  .card-content > div[suit="espases"][number="4"] > img:nth-child(4) {
     transform: rotate(-25deg);
   }
   
@@ -171,30 +171,30 @@
   
   /* 4 BASTOS */
   
-  .card-content > div[suit="bastos"][value="4"] {
+  .card-content > div[suit="bastos"][number="4"] {
     position: relative;
     justify-content: space-around;
     align-content: center;
   }
   
-  .card-content > div[suit="bastos"][value="4"] > img {
+  .card-content > div[suit="bastos"][number="4"] > img {
     height: auto;
-    width: calc(35% - 0.2rem);
+    width: calc(34% - 0.2rem);
   }
   
-  .card-content > div[suit="bastos"][value="4"] > img:nth-child(1) {
+  .card-content > div[suit="bastos"][number="4"] > img:nth-child(1) {
     transform: rotate(-30deg);
   }
   
-  .card-content > div[suit="bastos"][value="4"] > img:nth-child(2) {
+  .card-content > div[suit="bastos"][number="4"] > img:nth-child(2) {
     transform: rotate(30deg);
   }
   
-  .card-content > div[suit="bastos"][value="4"] > img:nth-child(3) {
+  .card-content > div[suit="bastos"][number="4"] > img:nth-child(3) {
     transform: rotate(210deg);
   }
   
-  .card-content > div[suit="bastos"][value="4"] > img:nth-child(4) {
+  .card-content > div[suit="bastos"][number="4"] > img:nth-child(4) {
     transform: rotate(150deg);
   }
   
@@ -202,12 +202,12 @@
   
   /* 5 OROS */
   
-  .card-content > div[suit="oros"][value="5"] > img {
+  .card-content > div[suit="oros"][number="5"] > img {
     height: auto;
     width: calc(50% - 0.2rem);
   }
   
-  .card-content > div[suit="oros"][value="5"] > img:nth-child(3) {
+  .card-content > div[suit="oros"][number="5"] > img:nth-child(3) {
     flex: 1;
     height: auto;
     width: calc(80% - 0.2rem);
@@ -217,12 +217,12 @@
   
   /* 5 COPES */
   
-  .card-content > div[suit="copes"][value="5"] > img {
+  .card-content > div[suit="copes"][number="5"] > img {
     height: auto;
     width: calc(50% - 0.2rem);
   }
   
-  .card-content > div[suit="copes"][value="5"] > img:nth-child(3) {
+  .card-content > div[suit="copes"][number="5"] > img:nth-child(3) {
     flex-basis: 100%;
     margin: 0 2rem;
   }
@@ -231,36 +231,36 @@
   
   /* 5 BASTOS */
   
-  .card-content > div[suit="bastos"][value="5"] {
+  .card-content > div[suit="bastos"][number="5"] {
     position: relative;
     justify-content: space-around;
     align-content: space-between;
   }
   
-  .card-content > div[suit="bastos"][value="5"] > img {
+  .card-content > div[suit="bastos"][number="5"] > img {
     height: auto;
-    width: calc(35% - 0.2rem);
+    width: calc(33.5% - 0.2rem);
   }
   
-  .card-content > div[suit="bastos"][value="5"] > img:nth-child(1) {
+  .card-content > div[suit="bastos"][number="5"] > img:nth-child(1) {
     transform: rotate(210deg);
   }
   
-  .card-content > div[suit="bastos"][value="5"] > img:nth-child(2) {
+  .card-content > div[suit="bastos"][number="5"] > img:nth-child(2) {
     transform: rotate(150deg);
   }
   
-  .card-content > div[suit="bastos"][value="5"] > img:nth-child(3) {
+  .card-content > div[suit="bastos"][number="5"] > img:nth-child(3) {
     position: absolute;
     left: calc(50% - ((35%)/2));
     transform: rotate(-90deg);
   }
   
-  .card-content > div[suit="bastos"][value="5"] > img:nth-child(4) {
+  .card-content > div[suit="bastos"][number="5"] > img:nth-child(4) {
     transform: rotate(-30deg);
   }
   
-  .card-content > div[suit="bastos"][value="5"] > img:nth-child(5) {
+  .card-content > div[suit="bastos"][number="5"] > img:nth-child(5) {
     transform: rotate(30deg);
   }
   
@@ -268,39 +268,39 @@
   
   /* 5 ESPASES */
   
-  .card-content > div[suit="espases"][value="5"] {
+  .card-content > div[suit="espases"][number="5"] {
     position: relative;
   }
   
-  .card-content > div[suit="espases"][value="5"] > img {
+  .card-content > div[suit="espases"][number="5"] > img {
     position: absolute;
     height: 40%;
     width: auto;
     transform: rotate(180deg);
   }
   
-  .card-content > div[suit="espases"][value="5"] > img:nth-child(1) {
+  .card-content > div[suit="espases"][number="5"] > img:nth-child(1) {
     top: 2%;
     left: 0;
   }
   
-  .card-content > div[suit="espases"][value="5"] > img:nth-child(2) {
+  .card-content > div[suit="espases"][number="5"] > img:nth-child(2) {
     top: 2%;
     right: 0;
   }
   
-  .card-content > div[suit="espases"][value="5"] > img:nth-child(3) {
+  .card-content > div[suit="espases"][number="5"] > img:nth-child(3) {
     left: calc(50% - ((35%)/2));
     transform: rotate(90deg);
   }
   
-  .card-content > div[suit="espases"][value="5"] > img:nth-child(4) {
+  .card-content > div[suit="espases"][number="5"] > img:nth-child(4) {
     bottom: 2%;
     left: 0;
     transform: rotate(0deg);
   }
   
-  .card-content > div[suit="espases"][value="5"] > img:nth-child(5) {
+  .card-content > div[suit="espases"][number="5"] > img:nth-child(5) {
     bottom: 2%;
     right: 0;
     transform: rotate(0deg);
@@ -310,7 +310,7 @@
   
   /* 6 OROS & 6 COPES */
   
-  .card-content > div[suit="oros"][value="6"] > img, .card-content > div[suit="copes"][value="6"] > img {
+  .card-content > div[suit="oros"][number="6"] > img, .card-content > div[suit="copes"][number="6"] > img {
     height: auto;
     width: calc(45% - 0.2rem);
   }
@@ -319,20 +319,20 @@
   
   /* 6, 8 BASTOS & 6,8 ESPASES */
   
-  .card-content > div[suit="bastos"][value="6"] > img, .card-content > div[suit="espases"][value="6"] > img {
+  .card-content > div[suit="bastos"][number="6"] > img, .card-content > div[suit="espases"][number="6"] > img {
     height: auto;
-    width: calc(33.3% - 0.2rem);;
+    width: calc(30% - 0.2rem);;
   }
   
-  .card-content > div[suit="espases"][value="6"] > img, .card-content > div[suit="espases"][value="8"] > img {
+  .card-content > div[suit="espases"][number="6"] > img, .card-content > div[suit="espases"][number="8"] > img {
     transform: rotate(180deg);
   }
   
-  .card-content > div[suit="espases"][value="6"] > img:nth-child(n+4), .card-content > div[suit="espases"][value="8"] > img:nth-child(n+5) {
+  .card-content > div[suit="espases"][number="6"] > img:nth-child(n+4), .card-content > div[suit="espases"][number="8"] > img:nth-child(n+5) {
     transform: rotate(0deg);
   }
   
-  .card-content > div[suit="bastos"][value="8"] > img, .card-content > div[suit="espases"][value="8"] > img {
+  .card-content > div[suit="bastos"][number="8"] > img, .card-content > div[suit="espases"][number="8"] > img {
     height: auto;
     width: calc(25% - 0.2rem);
   }
@@ -341,43 +341,43 @@
   
   /* 7 OROS */
   
-  .card-content > div[suit="oros"][value="7"] > img {
+  .card-content > div[suit="oros"][number="7"] > img {
     position: absolute;
     height: auto;
     width: calc(42% - 0.2rem);
   }
   
-  .card-content > div[suit="oros"][value="7"] > img:nth-child(1) {
+  .card-content > div[suit="oros"][number="7"] > img:nth-child(1) {
     top: 5%;
     left: 5%;
   }
   
-  .card-content > div[suit="oros"][value="7"] > img:nth-child(2) {
+  .card-content > div[suit="oros"][number="7"] > img:nth-child(2) {
     top: 5%;
     right: 5%;
   }
   
-  .card-content > div[suit="oros"][value="7"] > img:nth-child(3) {
+  .card-content > div[suit="oros"][number="7"] > img:nth-child(3) {
     top: 25%;
     left: calc(50% - (40%)/2);
   }
   
-  .card-content > div[suit="oros"][value="7"] > img:nth-child(4) {
+  .card-content > div[suit="oros"][number="7"] > img:nth-child(4) {
     top: 47.5%;
     right: 5%;
   }
   
-  .card-content > div[suit="oros"][value="7"] > img:nth-child(5) {
+  .card-content > div[suit="oros"][number="7"] > img:nth-child(5) {
     top: 47.5%;
     left: 5%;
   }
   
-  .card-content > div[suit="oros"][value="7"] > img:nth-child(6) {
+  .card-content > div[suit="oros"][number="7"] > img:nth-child(6) {
     bottom: 5%;
     left: 5%;
   }
   
-  .card-content > div[suit="oros"][value="7"] > img:nth-child(7) {
+  .card-content > div[suit="oros"][number="7"] > img:nth-child(7) {
     bottom: 5%;
     right: 5%;
   }
@@ -386,41 +386,41 @@
   
   /* 7 COPES */
   
-  .card-content > div[suit="copes"][value="7"] > img {
+  .card-content > div[suit="copes"][number="7"] > img {
     position: absolute;
     height: auto;
     width: calc(33.3% - 0.2rem);
   }
   
-  .card-content > div[suit="copes"][value="7"] > img:nth-child(1) {
+  .card-content > div[suit="copes"][number="7"] > img:nth-child(1) {
     top: 5%;
     left: 5%;
   }
   
-  .card-content > div[suit="copes"][value="7"] > img:nth-child(2) {
+  .card-content > div[suit="copes"][number="7"] > img:nth-child(2) {
     top: 5%;
     right: 5%;
   }
   
-  .card-content > div[suit="copes"][value="7"] > img:nth-child(3) {
+  .card-content > div[suit="copes"][number="7"] > img:nth-child(3) {
     left: 5%;
   }
   
-  .card-content > div[suit="copes"][value="7"] > img:nth-child(4) {
+  .card-content > div[suit="copes"][number="7"] > img:nth-child(4) {
     right: 5%;
   }
   
-  .card-content > div[suit="copes"][value="7"] > img:nth-child(5) {
+  .card-content > div[suit="copes"][number="7"] > img:nth-child(5) {
     top: 20%;
     left: calc(50% - (33.3%)/2);
   }
   
-  .card-content > div[suit="copes"][value="7"] > img:nth-child(6) {
+  .card-content > div[suit="copes"][number="7"] > img:nth-child(6) {
     bottom: 5%;
     left: 5%;
   }
   
-  .card-content > div[suit="copes"][value="7"] > img:nth-child(7) {
+  .card-content > div[suit="copes"][number="7"] > img:nth-child(7) {
     bottom: 5%;
     right: 5%;
   }
@@ -429,27 +429,27 @@
   
   /* 7 ESPASES */
   
-  .card-content > div[suit="espases"][value="7"] {
+  .card-content > div[suit="espases"][number="7"] {
     position: relative;
     justify-content: space-around;
     align-content: space-between;
     padding: .2rem 0;
   }
   
-  .card-content > div[suit="espases"][value="7"] > img {
+  .card-content > div[suit="espases"][number="7"] > img {
     height: auto;
-    width: calc(30% - .2rem);
+    width: calc(28% - .2rem);
     transform: rotate(180deg);
   
   }
   
-  .card-content > div[suit="espases"][value="7"] > img:nth-child(4) {
+  .card-content > div[suit="espases"][number="7"] > img:nth-child(4) {
     position: absolute;
     left: calc(50% - (30%)/2);
     transform: rotate(90deg);
   }
   
-  .card-content > div[suit="espases"][value="7"] > img:nth-child(n+5) {
+  .card-content > div[suit="espases"][number="7"] > img:nth-child(n+5) {
     transform: rotate(0deg);
   }
   
@@ -457,19 +457,19 @@
   
   /* 7 BASTOS */
   
-  .card-content > div[suit="bastos"][value="7"] {
+  .card-content > div[suit="bastos"][number="7"] {
     position: relative;
     justify-content: space-around;
     align-content: space-between;
     padding: .2rem 0;
   }
   
-  .card-content > div[suit="bastos"][value="7"] > img {
+  .card-content > div[suit="bastos"][number="7"] > img {
     height: auto;
     width: calc(33.3% - .2rem);
   }
   
-  .card-content > div[suit="bastos"][value="7"] > img:nth-child(4) {
+  .card-content > div[suit="bastos"][number="7"] > img:nth-child(4) {
     position: absolute;
     left: calc(50% - (33.3%)/2);
     transform: rotate(-90deg);
@@ -479,7 +479,7 @@
   
   /* 8 OROS */
   
-  .card-content > div[suit="oros"][value="8"] > img {
+  .card-content > div[suit="oros"][number="8"] > img {
     height: auto;
     width: calc(45% - 0.2rem);
   }
@@ -488,46 +488,46 @@
   
   /* 8 COPES */
   
-  .card-content > div[suit="copes"][value="8"] > img {
+  .card-content > div[suit="copes"][number="8"] > img {
     position: absolute;
     height: auto;
     width: calc(33.3% - 0.2rem);
   }
   
-  .card-content > div[suit="copes"][value="8"] > img:nth-child(1) {
+  .card-content > div[suit="copes"][number="8"] > img:nth-child(1) {
     top: 6%;
     left: 6%;
   }
   
-  .card-content > div[suit="copes"][value="8"] > img:nth-child(2) {
+  .card-content > div[suit="copes"][number="8"] > img:nth-child(2) {
     top: 6%;
     right: 6%;
   }
   
-  .card-content > div[suit="copes"][value="8"] > img:nth-child(3) {
+  .card-content > div[suit="copes"][number="8"] > img:nth-child(3) {
     left: 6%;
   }
   
-  .card-content > div[suit="copes"][value="8"] > img:nth-child(4) {
+  .card-content > div[suit="copes"][number="8"] > img:nth-child(4) {
     right: 6%;
   }
   
-  .card-content > div[suit="copes"][value="8"] > img:nth-child(5) {
+  .card-content > div[suit="copes"][number="8"] > img:nth-child(5) {
     top: 20%;
     left: calc(50% - (33.3%)/2);
   }
   
-  .card-content > div[suit="copes"][value="8"] > img:nth-child(6) {
+  .card-content > div[suit="copes"][number="8"] > img:nth-child(6) {
     bottom: 6%;
     left: 6%;
   }
   
-  .card-content > div[suit="copes"][value="8"] > img:nth-child(7) {
+  .card-content > div[suit="copes"][number="8"] > img:nth-child(7) {
     bottom: 6%;
     right: 6%;
   }
   
-  .card-content > div[suit="copes"][value="8"] > img:nth-child(8) {
+  .card-content > div[suit="copes"][number="8"] > img:nth-child(8) {
     top: 50%;
     left: calc(50% - (33.3%)/2);
   }
@@ -536,17 +536,17 @@
   
   /* 9 OROS */
   
-  .card-content > div[suit="oros"][value="9"] {
+  .card-content > div[suit="oros"][number="9"] {
     position: relative;
     justify-content: space-between;
   }
   
-  .card-content > div[suit="oros"][value="9"] > img {
+  .card-content > div[suit="oros"][number="9"] > img {
     height: auto;
     width: calc(40% - .2rem);
   }
   
-  .card-content > div[suit="oros"][value="9"] > img:nth-child(5) {
+  .card-content > div[suit="oros"][number="9"] > img:nth-child(5) {
     position: absolute;
     left: 30%;
   }
@@ -555,7 +555,7 @@
   
   /* 9 COPES */
   
-  .card-content > div[suit="copes"][value="9"] > img {
+  .card-content > div[suit="copes"][number="9"] > img {
     height: auto;
     width: calc(33.3% - 0.2rem);
   }
@@ -564,25 +564,25 @@
   
   /* 9 ESPASES */
   
-  .card-content > div[suit="espases"][value="9"] {
+  .card-content > div[suit="espases"][number="9"] {
     position: relative;
     justify-content: space-around;
   }
   
-  .card-content > div[suit="espases"][value="9"] > img {
+  .card-content > div[suit="espases"][number="9"] > img {
     height: auto;
     width: calc(25% - .2rem);
     transform: rotate(180deg);
   
   }
   
-  .card-content > div[suit="espases"][value="9"] > img:nth-child(5) {
+  .card-content > div[suit="espases"][number="9"] > img:nth-child(5) {
     position: absolute;
     left: 37.5%;
     transform: rotate(-90deg);
   }
   
-  .card-content > div[suit="espases"][value="9"] > img:nth-child(n+6) {
+  .card-content > div[suit="espases"][number="9"] > img:nth-child(n+6) {
     transform: rotate(0deg);
   }
   
@@ -590,17 +590,17 @@
   
   /* 9 BASTOS */
   
-  .card-content > div[suit="bastos"][value="9"] {
+  .card-content > div[suit="bastos"][number="9"] {
     position: relative;
     justify-content: space-around;
   }
   
-  .card-content > div[suit="bastos"][value="9"] > img {
+  .card-content > div[suit="bastos"][number="9"] > img {
     height: auto;
     width: calc(25% - .2rem);
   }
   
-  .card-content > div[suit="bastos"][value="9"] > img:nth-child(5) {
+  .card-content > div[suit="bastos"][number="9"] > img:nth-child(5) {
     position: absolute;
     left: calc(50% - (25%)/2);
     transform: rotate(90deg);

@@ -10,11 +10,94 @@
   </head>
   <body>
     <header>
-
+      <div id="main_menu">
+        <ul>
+          <li>Nova partida</li>
+        </ul>
+      </div>
     </header>
     <main>
-      <div id="board">
-        <ul id="cards_list"></ul>
+      <div id="initScreen">
+        <img id="logo" src="./src/images/logo.svg" alt="Logo del joc">
+        <div id="settingsContainer">
+            <div id="settingsInput">
+                <label for="numPlayers">
+                    Numero de jugadors
+                    <select id="numPlayers">
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </select>
+                </label>
+                <label for="playerMoney">
+                    Diners per jugador
+                    <input type="number" name="playerMoney" id="playerMoney" step="5">
+                </label>
+            </div>
+            <div id="settingsStartGame">
+                <button id="startGameButton">Iniciar partida</button>
+            </div>
+        </div>
+      </div>
+      <div id="scene" class="hide-content">
+        <div class="game-title">
+          <h1>7 i mig</h1>
+        </div>
+        <div id="table">
+        </div>
+        <div id="board">
+        </div>
+        <div id="user_board">
+          <ul id="user_hand"></ul>
+        </div>
+        <div class="cardsOfOpponent left_player">
+          <ul id="left_player_hand"></ul>
+        </div>
+        <div class="cardsOfOpponent right_player">
+          <ul id="right_player_hand"></ul>
+        </div>
+        <div class="cardsOfOpponent front_player">
+          <ul id="front_player_hand"></ul>
+        </div>
+        <div class="deck">
+          <ul id="deck"></ul>
+        </div>
+      </div>
+      <div id="user_comands">
+        <div id="askCard_container">        
+          <button id="askCard_button">Demanar carta</button>
+          <button id="showCard_button">Mostrar carta</button>
+        </div>
+        <div id="stand_container">
+          <div>
+            <div class="background-points"></div>
+            <div id="user_points"></div>
+          </div>
+          <button id="stand_button">Plantarse</button>
+        </div>
+        <div id="bet_container">
+          <div>
+            <input id="acumulator_bet" type="number" disabled>
+            <input id="money_left" type="number" disabled>
+          </div>
+          <div>
+            <input id="current_bet" type="number" step="5">
+            <button id="bet_button">Apostar</button>
+          </div>
+        </div>
+      </div>
+      <div id="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span id="modalTitle"></span>
+          </div>
+          <div class="modal-body">
+            <p id="modalText">Es el turno del jugador X</p>
+          </div>
+          <div class="modal-footer">
+            <button id="modalButton">Iniciar turno</button>
+          </div>
+        </div>
       </div>
     </main>
     <div id="app"></div>

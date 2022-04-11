@@ -2,51 +2,468 @@
   box-sizing: border-box;
 }
 
-body{
+body {
   margin: 0;
-  padding: 0;
+}
+
+/* HEADER */
+
+header {
+  background-color: lightgray;
+}
+
+#main_menu > ul{
+  margin: 0;
+  padding: 1em;
+  list-style: none;
+}
+
+/* ----------------------- */
+
+/* MAIN */
+
+main{
+  background-color: #000;
+  min-height: calc(100vh - 50px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 75px;
+}
+
+/* HOME SCREEN */
+
+#initScreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #006d00ff;
+}
+
+#logo {
+  width: 25%;
+  height: auto;
+  margin-bottom: .2em;
+}
+
+#settingsContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border: .05em solid #000000;
+  border-radius: .5em;
+  width: 40%;
+  padding: .2em;
+}
+
+#settingsContainer > #settingsInput {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: .2em;
+  border-bottom: 1px solid lightgray;
+}
+
+#settingsInput label {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 40%;
+  font-size: .2em;
+  font-weight: 700;
+}
+
+#settingsInput input, #settingsInput select {
+  font-size: 1em;
+  font-weight: 700;
+  padding: .2em;
+}
+
+#settingsContainer > #settingsStartGame {
+  display: flex;
+  justify-content: center;
+  padding-top: .1em;
+}
+
+#settingsStartGame > button {
+  width: 100%;
+  font-size: .2em;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #000000;
+  padding: .5em;
+  cursor: pointer;
+}
+
+/* ----------------------- */
+
+/* GAME SCREEN */
+
+#scene {
+  position: relative;
+  perspective: 10em;
+  perspective-origin: 50% calc(50% - 4em);
+}
+
+.game-title {
+  position: absolute;
+  top: -5em;
+  left: -2.5em;
+  width: 10em;
+  height: 5em;
+}
+
+.game-title > h1 {
+  width: 100%;
+  color: #ffffff;
+  margin: 0;
+}
+
+#table {
+  position: absolute;
+  top: 1em;
+  transform: 
+    translate(-50%, -50%)
+    rotateX(90deg);
+  width: 20em;
+  height: 25em;
+  background-image: url("./src/images/Free\ Wood\ Texture\ And\ Patterns\ »\ CSS\ Author.jpeg");
+  transform-style: preserve-3d;
 }
 
 #board {
-  height: 100vh;
-  width: 100vw;
-  background: linear-gradient(45deg, rgb(41, 146, 82) 12%, transparent 0, transparent 88%, rgb(38, 150, 71) 0),
-    linear-gradient(135deg, transparent 37%, rgb(33, 141, 57) 0, rgb(38, 153, 77) 63%, transparent 0),
-    linear-gradient(45deg, transparent 37%, rgb(24, 94, 42) 0, rgb(26, 167, 73) 63%, transparent 0) rgb(23, 156, 79);
-    background-size: 5px 5px;
+  position: absolute;
+  top: 1em;
+  transform: 
+    translate(-50%, -50%)
+    rotateX(90deg);
+  width: 15em;
+  height: 20em;
+  background-image: 
+    radial-gradient(#0000, #000 90%),
+    repeating-conic-gradient(from 45deg, rgb(15, 91, 30) 0deg 90deg, rgb(15, 91, 30) 90deg 180deg);
+  background-size: 100%, 1em 1em;
+  transform-style: preserve-3d;
 }
 
-#board ul {
+.deck {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  transform-style: preserve-3d;
+  transform: translateZ(-3em) translate(5em, -50%) rotateX(-90deg) scaleX(-1);
+}
+
+.cardsOfOpponent {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+.cardsOfOpponent.left_player {
+  transform: translateZ(-3em) translate(5em) rotateX(-90deg) rotateZ(-90deg) scaleX(-1);
+}
+
+.cardsOfOpponent.right_player {
+  transform: translateZ(-3em) translateX(-5em) rotateX(-90deg) rotateZ(90deg) scaleX(-1);
+}
+
+.cardsOfOpponent.front_player {
+  transform: translateZ(-3em) translate(-50%, -50%) rotateX(-90deg) scaleX(-1);
+}
+
+
+#user_board {
+  position: absolute;
+  transform: 
+    translateZ(.75em)
+    translate(-50%, 0%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 10em;
+  height: 2em;
+  z-index: 999;
+}
+
+#user_comands {
+  position: fixed;
+  width: 75%;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  background-color: rgba(131, 12, 12);
+  border-top: 1px solid lightgray;
+  padding: .25em;
+  border-radius: .5em .5em 0 0;
+}
+
+#user_comands > div{
+  display: flex;
+  width: 33.3%;
+  padding: 0 .2em;
+}
+
+#user_comands button:disabled {
+  opacity: 55%;
+  cursor: auto;
+}
+
+#user_comands button{
+  width: 100%;
+  padding: .5em;
+  font-size: .2em;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #000000;
+  cursor: pointer;
+}
+
+#user_comands > #askCard_container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#user_comands > #askCard_container > button{
+  flex-basis: 50%;
+  height: 100%;
+  max-width: 45%;
+}
+
+#user_comands > div:not(#askCard_container){
+  border-left: 1px solid lightgray;
+}
+
+#user_comands > #stand_container {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: .5em;
+}
+
+#user_comands > #stand_container > div {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#user_comands > #stand_container > div > .background-points {
+  position: absolute;
+  top: -2.5em;
+  width: 2em;
+  height: 2em;
+  background-color:rgba(131, 12, 12);
+  border-radius: 50% 0 50% 0;
+  transform: rotate(45deg);
+  color: #ffffff;
+  font-size: .5em;
+  padding: .2em .5em;
+  border-top: 1px solid #ffffff90;
+}
+
+#user_comands > #stand_container > div > #user_points {
+  position: absolute;
+  width: 1.75em;
+  height: 1.75em;
+  top: -2.25em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: .5em;
+  padding: .2em .5em;
+  border-top: 1px solid #ffffff90;
+}
+
+#user_comands > #stand_container > div > span{
+  font-size: .2em;
+}
+
+#user_comands > #bet_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#user_comands > #bet_container > div {
   display: flex;
   flex-wrap: wrap;
-  list-style: none;
+  justify-content: space-between;
   width: 100%;
-  margin: 0 20px;
+}
+
+#user_comands > #bet_container > div > input{
+  flex-basis: 50%;
+  max-width: 45%;
+  padding: .5em;
+}
+
+#user_comands > #bet_container button {
+  flex-basis: 55%;
+  max-width: 55%;
+}
+
+.deck ul {
+  position: relative;
+  list-style: none;
+  margin: 20px;
   padding: 0;
 }
 
-.card {
+.deck ul li{
+  position: absolute;
+  padding: .4rem .5rem;
+  border-radius: 5%;
   background-color: #ffffff;
-  padding: 10px;
-  margin: 10px;
+}
+
+.deck ul li div{
+  height: 11.95rem;
+  width: 7.2rem;
+  background-color: #ffffff;
   border-radius: 5%;
 }
 
-.card > div {
+.deck ul li img{
+  width: 100%;
+  height: auto;
+}
+
+.deck ul li:last-child{
+  box-shadow: 2px 8px 10px rgba(0, 0, 0, 0.5);
+}
+
+#user_board ul, .cardsOfOpponent ul{
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  list-style: none;
+  margin: 20px;
+  padding: 0;
+}
+
+
+#user_board .card {
+  cursor: pointer;
+}
+
+.card {
+  background-color: transparent;
+  height: 13.15rem;
+  width: 8.5rem;
+  margin: 0 .5rem;
+  border-radius: 5%;
+  perspective: 1000px;
+  user-select: none;
+}
+
+.card.selected .front, .card.selected .back {
+  outline: rgba(131, 12, 12) auto 1px;
+}
+
+.card > div:not(.hidden) {
+  position: relative;
+  height: 11.95rem;
+  width: 7.2rem;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.card > .hidden {
+  position: absolute;
+  padding: .4rem .5rem;
+  border-radius: 5%;
+  background-color: #ffffff;
+}
+
+.card > .hidden > div {
+  height: 11.95rem;
+  width: 7.2rem;
+  background-color: #ffffff;
+  border-radius: 5%;
+}
+
+.card > .hidden > div > img{
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/*
+.card:hover {
+  box-shadow: 2px 8px 10px rgba(0, 0, 0, 0.5);
+  transform: translate(-1px, -6px);
+  transition: transform .2s ease;
+  will-change: transform;
+  user-select: none;
+  cursor: pointer;
+}*/
+
+.card > div > .front, .card > div > .back {
+  position: absolute;
+  backface-visibility: hidden;
+  padding: .4rem .5rem;
+  border-radius: 5%;
+  background-color: #ffffff;
+}
+
+.card > div > .front > div {
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
-  height: 8.5rem;
-  width: 5rem;
+  height: 11.95rem;
+  width: 7.2rem;
   padding: .2rem .5rem;
   outline: 1px solid #111111;
+}
+
+.card > div:not(.flipped) > .back {
+  transform: rotateY(180deg);
+} 
+
+.card > .flipped > .front {
+  transform: rotateY(180deg);
+}  
+
+.card > div > .back > div{
+  height: 11.95rem;
+  width: 7.2rem;
+  background-color: #ffffff;
+  border-radius: 5%;
+}  
+
+.card > div > .back > div > img{
+  width: 100%;
+  height: 100%;
+}  
+
+#user_board > ul > .card:not(.visible):hover > div:not(.hidden) {
+  transform: rotateY(-180deg);
 }
 
 
 /* ------------ BORDER OF CARDS ------------ */
 
-.card > div[suit="espases"]::before, .card > div[suit="espases"]::after , .card > div[suit="espases"] > div::before, .card > div[suit="espases"] > div::after{
+.card > div > .front[suit="espases"] > div::before, .card > div > .front[suit="espases"] > div::after , .card > div > .front[suit="espases"] > div > div::before, .card > div > .front[suit="espases"] > div > div::after{
   content: "";
   position: absolute;
   height: 3px;
@@ -54,27 +471,27 @@ body{
   background-color: #ffffff;
 }
 
-.card > div[suit="espases"]::before {
+.card > div > .front[suit="espases"] > div::before {
   top: -2px;
   left: calc(100%/5);
 }
 
-.card > div[suit="espases"]::after {
+.card > div > .front[suit="espases"] > div::after {
   top: -2px;
   left: calc(3*(100%/5));
 }
 
-.card > div[suit="espases"] > div::before {
+.card > div > .front[suit="espases"] > div > div::before {
   bottom: -2px;
   left: calc(100%/5);
 }
 
-.card > div[suit="espases"] > div::after {
+.card > div > .front[suit="espases"] > div > div::after {
   bottom: -2px;
   left: calc(3*(100%/5));
 }
 
-.card > div[suit="bastos"]::before, .card > div[suit="bastos"]::after, .card > div[suit="bastos"] > .card-content::before, .card > div[suit="bastos"] > .card-content::after, .card > div[suit="bastos"] > .card-border:before, .card > div[suit="bastos"] > .card-border:after{
+.card > div > .front[suit="bastos"] > div::before, .card > div > .front[suit="bastos"] > div::after, .card > div > .front[suit="bastos"] > div > .card-content::before, .card > div > .front[suit="bastos"] > div > .card-content::after, .card > div > .front[suit="bastos"] > div > .card-border:before, .card > div > .front[suit="bastos"] > div > .card-border:after{
   content: "";
   position: absolute;
   height: 3px;
@@ -82,37 +499,37 @@ body{
   background-color: #ffffff;
 }
 
-.card > div[suit="bastos"]::before {
+.card > div > .front[suit="bastos"] > div::before {
   top: -2px;
   left: calc(100%/7);
 }
 
-.card > div[suit="bastos"]::after {
+.card > div > .front[suit="bastos"] > div::after {
   top: -2px;
   left: calc(3*(100%/7));
 }
 
-.card > div[suit="bastos"] > .card-content::before {
+.card > div > .front[suit="bastos"] > div > .card-content::before {
   top: -2px;
   left: calc(5*(100%/7));
 }
 
-.card > div[suit="bastos"] > .card-content::after {
+.card > div > .front[suit="bastos"] > div > .card-content::after {
   bottom: -2px;
   left: calc(100%/7);
 }
 
-.card > div[suit="bastos"] > .card-border::before {
+.card > div > .front[suit="bastos"] > div > .card-border::before {
   bottom: -2px;
   left: calc(3*(100%/7));
 }
 
-.card > div[suit="bastos"] > .card-border::after {
+.card > div > .front[suit="bastos"] > div > .card-border::after {
   bottom: -2px;
   left: calc(5*(100%/7));
 }
 
-.card > div[suit="copes"]::before, .card > div[suit="copes"]::after{
+.card > div > .front[suit="copes"] > div::before, .card > div > .front[suit="copes"] > div::after{
   content: "";
   position: absolute;
   height: 3px;
@@ -120,35 +537,36 @@ body{
   background-color: #ffffff;
 }
 
-.card > div[suit="copes"]::before {
+.card > div > .front[suit="copes"] > div::before {
   top: -2px;
   left: calc(100%/3);
 }
 
-.card > div[suit="copes"]::after {
+.card > div > .front[suit="copes"] > div::after {
   bottom: -2px;
   left: calc(100%/3);
 }
 
 /* ------------ --------------- ------------ */
 
-.card > div > .card-content {
+.card > div > .front > div > .card-content {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.card > div > span {
+.card > div > .front > div > span {
   position: absolute;
+  font-size: .25em;
 }
 
-.card > div > span:nth-child(1), .card > div[suit="bastos"] > span:nth-child(2) {
+.card > div > .front > div > span:nth-child(1), .card > div > .front[suit="bastos"] > div > span:nth-child(2) {
   top: 0;
   left: 2px;
 }
 
-.card > div > span:nth-child(3), .card > div[suit="bastos"] > span:nth-child(4) {
+.card > div > .front > div > span:nth-child(3), .card > div > .front[suit="bastos"] > div > span:nth-child(4) {
   bottom: 0;
   right: 2px;
   transform: rotate(180deg);
@@ -159,8 +577,8 @@ body{
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  height: 8.5rem;
-  width: 5rem;
+  height: 12.75rem;
+  width: 7.5rem;
 }
 
 .card-content > div > img {
@@ -171,3 +589,50 @@ body{
 
 
 /* ------------ ------------ ------------ */
+
+
+#modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content{
+  margin: 20% auto;
+  width: 30%;
+  background-color: #ffffff;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+  border-radius: 5%;
+}
+
+.modal-header, .modal-body{
+  display: flex;
+  padding: .2em;
+  border-bottom: 1px solid lightgray;
+}
+
+.modal-content > .modal-body{
+  margin: 0;
+  padding: .1em;
+  font-size: .3em;
+}
+
+.modal-footer{
+  display: flex;
+  justify-content: center;
+  padding: .2em;
+}
+
+
+/* ---------------------------- */
+
+
+.hide-content {
+  display: none;
+}
