@@ -34,10 +34,19 @@ export class Player {
         this._bet = bet;
     }
 
+    numberOfCards() {
+        return this._hand.length;
+    }
+
     //Pedir carta
-    dealCard(card) {
-        if(this.hasHiddenCard()){
-            card.visible = true;
+    dealCard(isBank, card) {
+        if(isBank) {
+            if(this.numberOfCards() !== 0) card.visible = true;
+        }
+        else {
+            if(this.hasHiddenCard()){
+                card.visible = true;
+            }
         }
         this._hand.push(card);
     }

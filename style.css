@@ -14,8 +14,18 @@ header {
 
 #main_menu > ul{
   margin: 0;
-  padding: 1em;
+  padding: .5em;
   list-style: none;
+}
+
+#main_menu > ul button {
+  width: fit-content;
+  font-size: .75em;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #000000;
+  padding: .5em 1.5em;
+  cursor: pointer;
 }
 
 /* ----------------------- */
@@ -161,6 +171,16 @@ main{
   transform: translateZ(-3em) translate(5em, -50%) rotateX(-90deg) scaleX(-1);
 }
 
+#deck {
+  cursor: pointer;
+}
+
+#deck.disabled {
+  opacity: 55%;
+  cursor: auto;
+  pointer-events: none;
+}
+
 .cardsOfOpponent {
   width: 100%;
   height: fit-content;
@@ -291,32 +311,66 @@ main{
   border-top: 1px solid #ffffff90;
 }
 
+#user_comands > #stand_container > div > #user_name {
+  position: absolute;
+  width: 10em;
+  top: -6.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-size: .25em;
+}
+
 #user_comands > #stand_container > div > span{
   font-size: .2em;
 }
 
 #user_comands > #bet_container {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
 }
 
 #user_comands > #bet_container > div {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 100%;
+  flex-direction: column;
+  justify-content: center;
 }
 
-#user_comands > #bet_container > div > input{
-  flex-basis: 50%;
-  max-width: 45%;
-  padding: .5em;
+#user_comands > #bet_container > div:first-child {
+  flex-basis: 60%;
+  max-width: 60%;
+}
+
+#user_comands > #bet_container > div:last-child {
+  padding: 0 .2em;
+  flex-basis: 40%;
+  max-width: 40%;
+}
+
+#user_comands > #bet_container > div > label{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  font-size: .2em;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+#user_comands > #bet_container > div > label > input{
+  text-align: center;
+  width: 2.5em;
+  margin-left: .25em;
+  padding: .5em .2em;
+}
+
+input#current_bet {
+  text-align: end;
+  padding: .5em .2em;
 }
 
 #user_comands > #bet_container button {
-  flex-basis: 55%;
-  max-width: 55%;
+  max-width: 100%;
 }
 
 .deck ul {
@@ -606,27 +660,54 @@ main{
 .modal-content{
   margin: 20% auto;
   width: 30%;
-  background-color: #ffffff;
+  background-color: rgba(131, 12, 12);
+  border: 1px solid lightgray;
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
   border-radius: 5%;
 }
 
 .modal-header, .modal-body{
   display: flex;
-  padding: .2em;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 2px solid lightgray;
+}
+
+.modal-header{
+  justify-content: center;
+  font-size: .5em;
+  font-weight: 600;
+  padding: 0.25em .5em;
+  color: #ffffff;
+}
+
+.modal-header > span{
+  text-align: center;
 }
 
 .modal-content > .modal-body{
+  background-color: #ffffff;
   margin: 0;
-  padding: .1em;
+  padding: 0 1em;
   font-size: .3em;
+}
+
+.modal-content > .modal-body > p{
+  text-align: justify;
 }
 
 .modal-footer{
   display: flex;
   justify-content: center;
   padding: .2em;
+}
+
+.modal-footer > button{
+  width: fit-content;
+  font-size: .2em;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #000000;
+  padding: .5em 1.5em;
+  cursor: pointer;
 }
 
 

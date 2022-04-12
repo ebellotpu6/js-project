@@ -4,7 +4,7 @@ const bastos = document.createElementNS("./src/images/oros.svg", "svg");
 const espases = document.createElementNS("./src/images/oros.svg", "svg");
 const copes = document.createElementNS("./src/images/oros.svg", "svg");
 
-let game;
+let game, lastWinner;
 
 const initScreen = document.getElementById("initScreen");
 const numPlayers = document.getElementById("numPlayers");
@@ -16,7 +16,9 @@ const scene = document.getElementById("scene");
 const modal = document.getElementById("modal");
 const modalTitle = modal.querySelector("#modalTitle");
 const modalText = modal.querySelector("#modalText");
-const modalButton = modal.querySelector("#modalButton");
+const modalButton1 = modal.querySelector("#modalButton1");
+const modalButton2 = modal.querySelector("#modalButton2");
+const modalButton3 = modal.querySelector("#modalButton3");
 
 const deck = document.getElementById("deck");
 const userHand = document.getElementById("user_hand");
@@ -27,43 +29,76 @@ const frontHand = document.getElementById("front_player_hand");
 startGameButton.addEventListener("click", startGame);
 
 function startGame() {
-    initScreen.style.display = "none";
-    scene.classList.remove("hide-content");
     game = new Game(numPlayers.value, Number(playerMoney.value));
 
     game.startRound();
     renderGame();
+    setTimeout(function() {
+        initScreen.style.display = "none";
+        scene.classList.remove("hide-content");
+    }, 500);
 }
 
-modalButton.addEventListener("click", nextTorn);
+modalButton1.addEventListener("click", nextTorn);
 
 function nextTorn() {
-    game.nextPlayer();
+    if(game.nextPlayer()) {
+        modal.style.display = "none";
+        renderGame();
+    } else {
+        lastWinner = game.whoWins();
+        modalTitle.textContent = `El jugador ${lastWinner.id} ha guanyat la ronda`;
+        modalText.textContent = `Amb un total de ${lastWinner.handValue()} punts, s'emporta un pot de ${game.jackpot}!`;
+        modalButton1.classList.add("hide-content");
+        modalButton2.classList.remove("hide-content");
+    }
+}
+
+modalButton2.addEventListener("click", restartRound);
+
+function restartRound() {
     modal.style.display = "none";
+    modalButton1.classList.remove("hide-content");
+    modalButton2.classList.add("hide-content");
+    game.restartRound(lastWinner);
+
     renderGame();
-    askCard_button.disabled = false;
+}
+
+modalButton3.addEventListener("click", closeModal);
+
+function closeModal() {
+    modal.style.display = "none";
+    modalButton1.classList.remove("hide-content");
+    modalButton3.classList.add("hide-content");
 }
 
 const askCard_button = document.getElementById("askCard_button");
 const showCard_button = document.getElementById("showCard_button");
 const userPoints = document.getElementById("user_points");
+const userName = document.getElementById("user_name");
 const stand_button = document.getElementById("stand_button");
 const acumulator_bet = document.getElementById("acumulator_bet");
 const money_left = document.getElementById("money_left");
 const current_bet = document.getElementById("current_bet");
 const bet_button = document.getElementById("bet_button");
 
+deck.addEventListener("dblclick", askCard);
+
 askCard_button.addEventListener("click", askCard);
 
 function askCard(){
     game.dealCard(game.currentPlayer);
-    console.log(game.currentPlayer.handValue());
     if(game.currentPlayer.handValue() > 7.5) {
         askCard_button.disabled = true;
+        deck.classList.add("disabled");
         game.currentPlayer.setAllCardsVisible();
         modal.style.display = "block";
-        modalTitle.textContent = "¡T'has pasat!"
-        modalText.textContent = `El jugador ${game.currentPlayer.id} ha superat el 7,5. És el torn del seguent jugador.`;
+        if(game.isBankPlayer(game.currentPlayer)) nextTorn();
+        else {
+            modalTitle.textContent = "¡T'has pasat!"
+            modalText.textContent = `El jugador ${game.currentPlayer.id} ha superat el 7,5. És el torn del seguent jugador.`;
+        }
     }
     renderGame();
 }
@@ -87,8 +122,11 @@ stand_button.addEventListener("click", stand);
 
 function stand(){
     modal.style.display = "block";
-    modalTitle.textContent = "¡T'has plantat!"
-    modalText.textContent = `El jugador ${game.currentPlayer.id} s'ha plantat. És el torn del seguent jugador.`;
+    if(game.isBankPlayer(game.currentPlayer)) nextTorn();
+    else {
+        modalTitle.textContent = "¡T'has plantat!"
+        modalText.textContent = `El jugador ${game.currentPlayer.id} s'ha plantat. És el torn del seguent jugador.`;
+    }
 }
 
 bet_button.addEventListener("click", bet);
@@ -99,11 +137,14 @@ function bet(){
         money_left.value = game.currentPlayer.money;
         current_bet.value = 0;
         askCard_button.disabled = false;
+        deck.classList.remove("disabled");
     }
     else{
         modal.style.display = "block";
         modalTitle.textContent = "No tens prous diners!"
         modalText.textContent = `La teva aposta és superior als teus diners. Actualment disposes de ${game.currentPlayer.money} punts en fitxes. La teva aposta no pot superar aquesta quantitat.`;
+        modalButton1.classList.add("hide-content");
+        modalButton3.classList.remove("hide-content");
     }
 }
 
@@ -264,7 +305,22 @@ const renderGame = () => {
     rightHand.textContent = "";
     frontHand.textContent = "";
 
+    if(game.currentPlayer === game.bankPlayer){
+        game.currentPlayer.setAllCardsVisible();
+        current_bet.disabled = true;
+        bet_button.disabled = true;
+        askCard_button.disabled = false;
+        deck.classList.remove("disabled");
+    }
+    else {
+        askCard_button.disabled = true;
+        deck.classList.add("disabled");
+        current_bet.disabled = false;
+        bet_button.disabled = false;
+    }
+
     showCard_button.disabled = true;
+    userName.textContent = `Jugador: ${game.currentPlayer.id}`;
     userPoints.textContent = game.currentPlayer.handValue();
     acumulator_bet.value = game.currentPlayer.bet;
     money_left.value = game.currentPlayer.money;
@@ -272,19 +328,33 @@ const renderGame = () => {
     for(let i = 0; i < game.deck.cards.length; i++){
         deck.appendChild(renderDeck(game.deck.cards[i], i));
     };
-    game.players[1].hand.forEach(card => {
-        leftHand.appendChild(renderOponentCard(card));
-    });
-    game.players[2].hand.forEach(card => {
-        frontHand.appendChild(renderOponentCard(card));
-    });
-    game.players[game.numberOfPlayers()-1].hand.forEach(card => {
-        rightHand.appendChild(renderOponentCard(card));
-    });
 
-    if(game.currentPlayer.bet === 0) {
-        console.log("Player bet = 0");
-        askCard_button.disabled = true;
+    if(game.numberOfPlayers() === 2) {
+        game.playersOrder[1].hand.forEach(card => {
+            frontHand.appendChild(renderOponentCard(card));
+        });
+    }
+
+    else if (game.numberOfPlayers() === 3) {
+        game.playersOrder[1].hand.forEach(card => {
+            leftHand.appendChild(renderOponentCard(card));
+        });
+        game.playersOrder[2].hand.forEach(card => {
+            rightHand.appendChild(renderOponentCard(card));
+        });
+    }
+
+    else {
+        game.playersOrder[1].hand.forEach(card => {
+            leftHand.appendChild(renderOponentCard(card));
+        });
+        game.playersOrder[2].hand.forEach(card => {
+            frontHand.appendChild(renderOponentCard(card));
+        });
+        game.playersOrder[game.numberOfPlayers()-1].hand.forEach(card => {
+            rightHand.appendChild(renderOponentCard(card));
+        });
+
     }
     game.currentPlayer.hand.forEach(card => {
         userHand.appendChild(renderUserCard(card));

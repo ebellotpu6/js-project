@@ -5,7 +5,7 @@ export class Game {
     constructor(numPlayers, money){
         this._deck = new Deck();
         this._players = [];
-        for (let i = 0; i < numPlayers; i++) {
+        for (let i = 1; i <= numPlayers; i++) {
             this._players.push(new Player(i, money));
         }
         this._playersOrder = this._players;
@@ -30,6 +30,14 @@ export class Game {
         this._players = players;
     }
 
+    get playersOrder() {
+        return this._playersOrder;
+    }
+
+    set playersOrder(playersOrder) {
+        this._playersOrder = playersOrder;
+    }
+
     get bankPlayer() {
         return this._bankPlayer;
     }
@@ -46,21 +54,36 @@ export class Game {
         this._currentPlayer = player;
     }
 
+    get jackpot() {
+        return this._jackpot;
+    }
+
+    set jackpot(jackpot) {
+        this._jackpot = jackpot;
+    }
+
     numberOfPlayers() {
         return this._players.length;
+    }
+
+    isBankPlayer(player) {
+        return player === this._bankPlayer;
     }
 
     startRound(){
         this._deck.shuffle();
         this._playersOrder.forEach(player => {
-            console.log(player);
-            player.dealCard(this._deck.cards.pop());
+            player.dealCard(this.isBankPlayer(player), this._deck.cards.pop());
         });
     }
 
-    restartRound(){
+    restartRound(lastWinner){
         this._deck = new Deck();
         this._jackpot = 0;
+        this._bankPlayer = lastWinner;
+        let lastWinnerIndex = this._playersOrder.indexOf(lastWinner);
+        this._playersOrder = this.restoreOrder(lastWinnerIndex);
+        this._currentPlayer = this._playersOrder[0];
         this._players.forEach(player => {
             player.hand = [];
             player.bet = 0;
@@ -68,36 +91,42 @@ export class Game {
         this.startRound();
     }
 
+    restoreOrder(index){
+        return this._playersOrder.slice(index+1).concat(this._playersOrder.slice(0, index+1));
+    }
+
     dealCard(player){
-        if(player.bet === 0) return false;
-        else {
-            player.dealCard(this._deck.cards.pop());
+        if(this.isBankPlayer(player)){
+            player.dealCard(true, this._deck.cards.pop());
             return true;
         }
+        else {
+            if(player.bet === 0) return false;
+            else {
+                player.dealCard(false, this._deck.cards.pop());
+                return true;
+            }
+        } 
     }
 
     makeBet(player, bet){
-        const current_bet = Number(bet);
-        if(player.makeBet(current_bet)) {
-            this._jackpot += current_bet;
-            return true;
+        if(this.isBankPlayer(player)) return false;
+        else{
+            const current_bet = Number(bet);
+            if(player.makeBet(current_bet)) {
+                this._jackpot += current_bet;
+                return true;
+            }
+            else return false;
         }
-        else return false;
     }
 
     nextPlayer(){
-        if(this.currentPlayer === this._bankPlayer){
-            let winner = this.whoWins();
-            alert(`The player ${winner.id} wins the game with ${winner.handValue()}. He has won ${this._jackpot}!!!`);
-            winner.money += this._jackpot;
-            this._bankPlayer = winner;
-            this.restartRound();
-        } 
+        if(this.isBankPlayer(this._currentPlayer)) return false;
         else {
-            console.log("next player is...");
             this._playersOrder.splice(this.numberOfPlayers()-1, 0, this._playersOrder.splice(0, 1)[0]);
             this._currentPlayer = this._playersOrder[0];
-            console.log(this._currentPlayer);
+            return true;
         }
     }
 
@@ -113,6 +142,7 @@ export class Game {
                 maxPoints = playerHandValue;
             }
         });
+        winner.money += this._jackpot;
         return winner;
     }
 }

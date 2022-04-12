@@ -12,7 +12,11 @@
     <header>
       <div id="main_menu">
         <ul>
-          <li>Nova partida</li>
+          <li>
+            <button id="restartGameButton">
+              Nova partida
+            </button>  
+          </li>
         </ul>
       </div>
     </header>
@@ -31,7 +35,7 @@
                 </label>
                 <label for="playerMoney">
                     Diners per jugador
-                    <input type="number" name="playerMoney" id="playerMoney" step="5">
+                    <input type="number" name="playerMoney" id="playerMoney" step="5" min="0" max="1000">
                 </label>
             </div>
             <div id="settingsStartGame">
@@ -70,6 +74,7 @@
         </div>
         <div id="stand_container">
           <div>
+            <div id="user_name"></div>
             <div class="background-points"></div>
             <div id="user_points"></div>
           </div>
@@ -77,11 +82,15 @@
         </div>
         <div id="bet_container">
           <div>
-            <input id="acumulator_bet" type="number" disabled>
-            <input id="money_left" type="number" disabled>
+            <label for="acumulator_bet">Aposta acumulada:
+              <input id="acumulator_bet" type="text" name="acumulator_bet" disabled>
+            </label>
+            <label for="money_left">Diners restants:
+              <input id="money_left" type="text" name="money_left" disabled>
+            </label>
           </div>
           <div>
-            <input id="current_bet" type="number" step="5">
+            <input id="current_bet" type="number" step="5" min="0" max="1000">
             <button id="bet_button">Apostar</button>
           </div>
         </div>
@@ -92,10 +101,12 @@
             <span id="modalTitle"></span>
           </div>
           <div class="modal-body">
-            <p id="modalText">Es el turno del jugador X</p>
+            <p id="modalText">És el torn del jugador X</p>
           </div>
           <div class="modal-footer">
-            <button id="modalButton">Iniciar turno</button>
+            <button id="modalButton1">Iniciar torn</button>
+            <button id="modalButton2" class="hide-content">Començar una nova ronda</button>
+            <button id="modalButton3" class="hide-content">Acceptar</button>
           </div>
         </div>
       </div>
