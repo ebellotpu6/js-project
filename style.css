@@ -1,3 +1,19 @@
+:root {
+  /* Variables Globals */
+  --initScreenBG-color: #006d00ff;
+  --headerBG-color: lightgray;
+  --ui-color: rgba(131, 12, 12);
+  --modalGW-color:rgb(255, 212, 42);
+  --background-color: #000000;
+  --board-color: rgb(15, 91, 30);
+  --cardBG-color: #ffffff;
+  --buttonBG-color: #000000;
+  --buttonText-color: #ffffff;
+  --dark-color: #000000;
+  --light-color: #ffffff;
+  --borders-color: lightgray;
+}
+
 *{
   box-sizing: border-box;
 }
@@ -9,21 +25,26 @@ body {
 /* HEADER */
 
 header {
-  background-color: lightgray;
+  background-color: var(--headerBG-color);
 }
 
 #main_menu > ul{
+  display: flex;
   margin: 0;
   padding: .5em;
   list-style: none;
+}
+
+#main_menu > ul > li{
+  margin: 0 .5em;
 }
 
 #main_menu > ul button {
   width: fit-content;
   font-size: .75em;
   font-weight: 700;
-  color: #ffffff;
-  background-color: #000000;
+  color: var(--buttonText-color);
+  background-color: var(--buttonBG-color);
   padding: .5em 1.5em;
   cursor: pointer;
 }
@@ -33,7 +54,7 @@ header {
 /* MAIN */
 
 main{
-  background-color: #000;
+  background-color: var(--background-color);
   min-height: calc(100vh - 50px);
   display: flex;
   justify-content: center;
@@ -54,22 +75,22 @@ main{
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: #006d00ff;
+  background-color: var(--initScreenBG-color);
 }
 
 #logo {
   width: 25%;
   height: auto;
-  margin-bottom: .2em;
+  margin-bottom: .5em;
 }
 
 #settingsContainer {
   display: flex;
   flex-direction: column;
-  background-color: white;
-  border: .05em solid #000000;
+  background-color: var(--light-color);
+  border: .05em solid var(--dark-color);
   border-radius: .5em;
-  width: 40%;
+  width: 30%;
   padding: .2em;
 }
 
@@ -77,7 +98,7 @@ main{
   display: flex;
   justify-content: space-between;
   padding-bottom: .2em;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid var(--borders-color);
 }
 
 #settingsInput label {
@@ -104,8 +125,8 @@ main{
   width: 100%;
   font-size: .2em;
   font-weight: 700;
-  color: #ffffff;
-  background-color: #000000;
+  color: var(--buttonText-color);
+  background-color: var(--buttonBG-color);
   padding: .5em;
   cursor: pointer;
 }
@@ -130,7 +151,7 @@ main{
 
 .game-title > h1 {
   width: 100%;
-  color: #ffffff;
+  color: var(--light-color);
   margin: 0;
 }
 
@@ -155,8 +176,8 @@ main{
   width: 15em;
   height: 20em;
   background-image: 
-    radial-gradient(#0000, #000 90%),
-    repeating-conic-gradient(from 45deg, rgb(15, 91, 30) 0deg 90deg, rgb(15, 91, 30) 90deg 180deg);
+    radial-gradient(#0000, var(--dark-color) 90%),
+    repeating-conic-gradient(from 45deg, var(--board-color) 0deg 90deg, var(--board-color) 90deg 180deg);
   background-size: 100%, 1em 1em;
   transform-style: preserve-3d;
 }
@@ -224,8 +245,8 @@ main{
   bottom: 0;
   display: flex;
   justify-content: space-around;
-  background-color: rgba(131, 12, 12);
-  border-top: 1px solid lightgray;
+  background-color: var(--ui-color);
+  border-top: 1px solid var(--borders-color);
   padding: .25em;
   border-radius: .5em .5em 0 0;
 }
@@ -246,8 +267,8 @@ main{
   padding: .5em;
   font-size: .2em;
   font-weight: 700;
-  color: #ffffff;
-  background-color: #000000;
+  color: var(--light-color);
+  background-color: var(--dark-color);
   cursor: pointer;
 }
 
@@ -263,7 +284,7 @@ main{
 }
 
 #user_comands > div:not(#askCard_container){
-  border-left: 1px solid lightgray;
+  border-left: 1px solid var(--borders-color);
 }
 
 #user_comands > #stand_container {
@@ -286,13 +307,13 @@ main{
   top: -2.5em;
   width: 2em;
   height: 2em;
-  background-color:rgba(131, 12, 12);
+  background-color: var(--ui-color);
   border-radius: 50% 0 50% 0;
   transform: rotate(45deg);
-  color: #ffffff;
+  color: var(--light-color);
   font-size: .5em;
   padding: .2em .5em;
-  border-top: 1px solid #ffffff90;
+  border-top: 1px solid var(--borders-color);
 }
 
 #user_comands > #stand_container > div > #user_points {
@@ -305,10 +326,10 @@ main{
   align-items: center;
   background-color: #000;
   border-radius: 50%;
-  color: #ffffff;
+  color: var(--light-color);
   font-size: .5em;
   padding: .2em .5em;
-  border-top: 1px solid #ffffff90;
+  border-top: 1px solid var(--borders-color);
 }
 
 #user_comands > #stand_container > div > #user_name {
@@ -318,7 +339,7 @@ main{
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #ffffff;
+  color: var(--light-color);
   font-size: .25em;
 }
 
@@ -338,28 +359,29 @@ main{
 }
 
 #user_comands > #bet_container > div:first-child {
-  flex-basis: 60%;
-  max-width: 60%;
+  padding: 0 .5em;
+  flex-basis: 50%;
+  max-width: 50%;
 }
 
 #user_comands > #bet_container > div:last-child {
-  padding: 0 .2em;
-  flex-basis: 40%;
-  max-width: 40%;
+  flex-basis: 50%;
+  max-width: 50%;
 }
 
 #user_comands > #bet_container > div > label{
   display: flex;
   justify-content: end;
   align-items: center;
+  text-align: end;
   font-size: .2em;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--light-color);
 }
 
 #user_comands > #bet_container > div > label > input{
   text-align: center;
-  width: 2.5em;
+  width: 3em;
   margin-left: .25em;
   padding: .5em .2em;
 }
@@ -380,17 +402,38 @@ input#current_bet {
   padding: 0;
 }
 
+.deck .tooltip-text {
+  visibility: hidden;
+  width: 5em;
+  background-color: var(--ui-color);
+  color: var(--light-color);
+  font-size: .25em;
+  text-align: center;
+  border-radius: 6px;
+  padding: 0 .5em;
+  position: absolute;
+  z-index: 999;
+
+  transform: rotateX(90deg) scaleX(-1);
+  
+}
+
+.tooltip:hover .tooltip-text {
+  visibility:  visible;
+}
+
+
 .deck ul li{
   position: absolute;
   padding: .4rem .5rem;
   border-radius: 5%;
-  background-color: #ffffff;
+  background-color: var(--light-color);
 }
 
 .deck ul li div{
   height: 11.95rem;
   width: 7.2rem;
-  background-color: #ffffff;
+  background-color: var(--light-color);
   border-radius: 5%;
 }
 
@@ -428,7 +471,7 @@ input#current_bet {
 }
 
 .card.selected .front, .card.selected .back {
-  outline: rgba(131, 12, 12) auto 1px;
+  outline: var(--ui-color) auto 1px;
 }
 
 .card > div:not(.hidden) {
@@ -444,13 +487,13 @@ input#current_bet {
   position: absolute;
   padding: .4rem .5rem;
   border-radius: 5%;
-  background-color: #ffffff;
+  background-color: var(--cardBG-color);
 }
 
 .card > .hidden > div {
   height: 11.95rem;
   width: 7.2rem;
-  background-color: #ffffff;
+  background-color: var(--cardBG-color);
   border-radius: 5%;
 }
 
@@ -461,22 +504,12 @@ input#current_bet {
   -webkit-user-drag: none;
 }
 
-/*
-.card:hover {
-  box-shadow: 2px 8px 10px rgba(0, 0, 0, 0.5);
-  transform: translate(-1px, -6px);
-  transition: transform .2s ease;
-  will-change: transform;
-  user-select: none;
-  cursor: pointer;
-}*/
-
 .card > div > .front, .card > div > .back {
   position: absolute;
   backface-visibility: hidden;
   padding: .4rem .5rem;
   border-radius: 5%;
-  background-color: #ffffff;
+  background-color: var(--cardBG-color);
 }
 
 .card > div > .front > div {
@@ -487,7 +520,7 @@ input#current_bet {
   height: 11.95rem;
   width: 7.2rem;
   padding: .2rem .5rem;
-  outline: 1px solid #111111;
+  outline: 1px solid var(--dark-color);
 }
 
 .card > div:not(.flipped) > .back {
@@ -501,7 +534,7 @@ input#current_bet {
 .card > div > .back > div{
   height: 11.95rem;
   width: 7.2rem;
-  background-color: #ffffff;
+  background-color: var(--cardBG-color);
   border-radius: 5%;
 }  
 
@@ -522,7 +555,7 @@ input#current_bet {
   position: absolute;
   height: 3px;
   width: calc(100%/5);
-  background-color: #ffffff;
+  background-color: var(--cardBG-color);
 }
 
 .card > div > .front[suit="espases"] > div::before {
@@ -550,7 +583,7 @@ input#current_bet {
   position: absolute;
   height: 3px;
   width: calc(100%/7);
-  background-color: #ffffff;
+  background-color: var(--cardBG-color);
 }
 
 .card > div > .front[suit="bastos"] > div::before {
@@ -588,7 +621,7 @@ input#current_bet {
   position: absolute;
   height: 3px;
   width: calc(100%/3);
-  background-color: #ffffff;
+  background-color: var(--cardBG-color);
 }
 
 .card > div > .front[suit="copes"] > div::before {
@@ -645,7 +678,7 @@ input#current_bet {
 /* ------------ ------------ ------------ */
 
 
-#modal {
+#modalGame, #modalHelp {
   display: none;
   position: fixed;
   top: 0;
@@ -660,34 +693,77 @@ input#current_bet {
 .modal-content{
   margin: 20% auto;
   width: 30%;
-  background-color: rgba(131, 12, 12);
-  border: 1px solid lightgray;
+  background-color: var(--ui-color);
+  border: 1px solid var(--borders-color);
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
   border-radius: 5%;
 }
 
+#modalHelp .modal-content{
+  margin: 10% auto;
+  width: 75%;
+}
+
+.modal-content.game-winner {
+  background-color: var(--modalGW-color);
+}
+
+.modal-content.game-winner .modal-header {
+  color: var(--dark-color);
+}
+
 .modal-header, .modal-body{
   display: flex;
-  border-bottom: 2px solid lightgray;
+  flex-direction: column;
+  border-bottom: 2px solid var(--borders-color);
 }
 
 .modal-header{
+  position: relative;
   justify-content: center;
   font-size: .5em;
   font-weight: 600;
   padding: 0.25em .5em;
-  color: #ffffff;
+  color: var(--light-color);
 }
 
 .modal-header > span{
   text-align: center;
 }
 
+.modal-header > button {
+  position: absolute;
+  top: .25em;
+  right: 1em;
+  background-color: transparent;
+  color: var(--light-color);
+  font-size: 1em;
+  border: none;
+  cursor: pointer;
+}
+
 .modal-content > .modal-body{
-  background-color: #ffffff;
+  background-color: var(--light-color);
   margin: 0;
   padding: 0 1em;
   font-size: .3em;
+}
+
+#modalHelp > .modal-content > .modal-body{
+  padding: 1em 2em;
+}
+
+#modalHelp > .modal-content > .modal-body > h3{
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--borders-color);
+}
+
+#modalHelp > .modal-content > .modal-body > b{
+  margin: 1.5em 0 .5em 1em;
+}
+
+#modalHelp > .modal-content > .modal-body > p{
+  margin: .5em 0;
 }
 
 .modal-content > .modal-body > p{
@@ -704,8 +780,8 @@ input#current_bet {
   width: fit-content;
   font-size: .2em;
   font-weight: 700;
-  color: #ffffff;
-  background-color: #000000;
+  color: var(--buttonText-color);
+  background-color: var(--buttonBG-color);
   padding: .5em 1.5em;
   cursor: pointer;
 }

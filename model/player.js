@@ -88,5 +88,12 @@ export class Player {
         }
     }
 
+    earnMoney(money) {
+        this._money += money;
+    }
+
+    loseMoney(money) {
+        this._money -= money;
+    }
     
 }

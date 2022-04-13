@@ -17,6 +17,11 @@
               Nova partida
             </button>  
           </li>
+          <li>
+            <button id="helpButton">
+              Com es juga?
+            </button>  
+          </li>
         </ul>
       </div>
     </header>
@@ -30,12 +35,12 @@
                     <select id="numPlayers">
                       <option value="2">2</option>
                       <option value="3">3</option>
-                      <option value="4">4</option>
+                      <option value="4" selected="selected">4</option>
                     </select>
                 </label>
                 <label for="playerMoney">
                     Diners per jugador
-                    <input type="number" name="playerMoney" id="playerMoney" step="5" min="0" max="1000">
+                    <input type="number" name="playerMoney" id="playerMoney" step="5" min="0" max="1000" value="1000">
                 </label>
             </div>
             <div id="settingsStartGame">
@@ -63,8 +68,10 @@
         <div class="cardsOfOpponent front_player">
           <ul id="front_player_hand"></ul>
         </div>
-        <div class="deck">
-          <ul id="deck"></ul>
+        <div class="deck tooltip" >
+          <ul id="deck">
+          </ul>
+          <span class="tooltip-text">Demanar carta</span>
         </div>
       </div>
       <div id="user_comands">
@@ -82,6 +89,10 @@
         </div>
         <div id="bet_container">
           <div>
+            <input id="current_bet" type="number" step="5" min="0" max="1000" value="0">
+            <button id="bet_button">Apostar</button>
+          </div>
+          <div>
             <label for="acumulator_bet">Aposta acumulada:
               <input id="acumulator_bet" type="text" name="acumulator_bet" disabled>
             </label>
@@ -89,24 +100,93 @@
               <input id="money_left" type="text" name="money_left" disabled>
             </label>
           </div>
-          <div>
-            <input id="current_bet" type="number" step="5" min="0" max="1000">
-            <button id="bet_button">Apostar</button>
-          </div>
         </div>
       </div>
-      <div id="modal">
+      <div id="modalGame">
         <div class="modal-content">
           <div class="modal-header">
             <span id="modalTitle"></span>
           </div>
           <div class="modal-body">
-            <p id="modalText">És el torn del jugador X</p>
+            <p id="modalText"></p>
           </div>
           <div class="modal-footer">
             <button id="modalButton1">Iniciar torn</button>
             <button id="modalButton2" class="hide-content">Començar una nova ronda</button>
             <button id="modalButton3" class="hide-content">Acceptar</button>
+            <button id="modalButton4" class="hide-content">Cancelar</button>
+            <button id="modalButton5" class="hide-content">Acceptar</button>
+          </div>
+        </div>
+      </div>
+      <div id="modalHelp">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span id="modalTitle">Com es juga?</span>
+            <button id="modalButton6">x</button>
+          </div>
+          <div class="modal-body">
+            <h3>Descripció:</h3>
+            <p id="modalText">
+              Es tracta d'un joc de baralla espanyola de 40 cartes, anomenat indistintament set i mig o set i mitja.
+            </p>
+            <h3>Objectiu del joc:</h3>
+            <p id="modalText">
+              És un joc d'apostes, generalment amb petites quantitats de diners. L'objectiu és simplement intentar guanyar les apostes plantejades a cada mà. La finalització de la partida depèn de la decisió de cada jugador de continuar-hi, ja que la partida en si mateixa no té un final definit.
+            </p>
+            <p>
+              A cadascuna de les mans o apostes cada jugador competeix contra la banca; l'objectiu és intentar sumar set i mig o el nombre més proper possible, sense sobrepassar aquesta quantitat.
+            </p>
+            <h3>Valor de les cartes:</h3>
+            <p id="modalText">
+              Als efectes de sumar cada jugador els desitjats set i mig, cada carta té, indistintament del seu pal, el valor que indica el seu propi índex, llevat de les dotze figures (sota, cavall i rei) que tenen un valor de mig punt.
+            </p>
+            <h3>Desenvolupament del joc</h3>
+            <b>Començament de la partida i de cadascuna de les mans</b>
+            <p id="modalText">
+              Per sorteig es decideix qui és el jugador que començarà tenint la banca, que serà qui reparteix. La banca reparteix una carta a cadascun dels jugadors, incloent-hi ella mateixa.
+            </p>
+            <b>L'aposta del jugador</b>
+            <p id="modalText">
+              Per torns, de dreta a esquerra, començant pel jugador situat a la dreta de la banca, cada jugador realitza dues accions:
+            </p>
+            <ul> 
+              <li>En primer lloc heu de fer la vostra aposta, generalment dins d'un rang prèviament fixat.</li>
+              <li>Seguidament heu de decidir si voleu rebre més cartes de la baralla. Si no ho desitja cal indicar-ho dient que es planta. Si, per contra, desitja cartes per intentar acostar-se el més possible a sumar set i mig, podrà demanar totes les que vulgui d'una en una podent-se plantar quan vulgui.</li>
+            </ul>
+            <p>
+              El jugador que està rebent cartes podrà mantenir sobre la taula una única carta de cap per avall, mantenint així sempre la seva jugada en secret. Per tant, cada cop que demana una nova carta, ha de decidir entre aquestes dues opcions:
+            </p>
+            <ol>
+              <li>Demanar la carta de cara amunt.</li>
+              <li>Demanar la carta de cap per avall, i en aquest cas ha de col·locar de cara amunt la carta que tingués oculta anteriorment.</li>
+            </ol>
+            <p>
+              Si en el seu torn un jugador es passés del set i mig, ha de mostrar totes les cartes i perd immediatament la seva aposta.            
+            </p>
+            <b>Juga la banca</b>
+            <p id="modalText">
+              Un cop hagin fet les apostes tots els jugadors, arriba el torn a la banca. Si quedés algun jugador que no s'hagués passat de set i mig, i per tant encara està en condicions de poder guanyar la seva aposta, la banca procedirà alhora a jugar.
+            </p>
+            <p>
+              La banca no fa apostes, simplement rep les dels jugadors, i juga com els altres jugadors, plantant-se (si creu que així guanya a tots o alguns dels jugadors que queden) o donant-se cartes, d'una en una, però amb totes les seves cartes panxa enlaire fins a decidir plantar-se.
+            </p>
+            <b>Cobrar les apostes</b>
+            <p id="modalText">
+              La banca juga contra tots i cadascun dels jugadors, i per tant si s'ha passat, haurà de pagar a tots aquells jugadors que s'hagin plantat.
+            </p>
+            <p>
+              Si la banca s'ha plantat, comprova amb cada jugador la seva jugada per veure amb qui guanya o perd. A cada aposta venç qui més s'acosti a set i mig. En cas d'empat, guanya la banca; per tant, si la banca en té set i mig guanya automàticament a tots els jugadors.
+            </p>
+            <p>
+              La banca ha de pagar la quantitat apostada, a cada jugador amb qui perdi, i a la inversa, cada jugador que perdi amb la banca ha de pagar a aquesta la quantitat apostada.
+            </p>
+            <p>
+              Si un jugador té set i mig (i la banca no) cobra el doble del que s'ha apostat i amés pren la banca a la mà següent.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button id="modalButton7">Tornar a la partida</button>
           </div>
         </div>
       </div>

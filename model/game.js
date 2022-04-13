@@ -11,7 +11,6 @@ export class Game {
         this._playersOrder = this._players;
         this._bankPlayer = this._players[numPlayers - 1];
         this._currentPlayer = this._players[0];
-        this._jackpot = 0;
     }
 
     get deck() {
@@ -54,20 +53,23 @@ export class Game {
         this._currentPlayer = player;
     }
 
-    get jackpot() {
-        return this._jackpot;
-    }
-
-    set jackpot(jackpot) {
-        this._jackpot = jackpot;
-    }
-
     numberOfPlayers() {
         return this._players.length;
     }
 
     isBankPlayer(player) {
         return player === this._bankPlayer;
+    }
+
+    restartGame(){
+        this._deck = new Deck();
+        this._players.forEach(player => {
+            player.hand = [];
+            player.bet = 0;
+        });
+        this._playersOrder = this._players;
+        this._bankPlayer = this._players[this.numberOfPlayers() - 1];
+        this._currentPlayer = this._players[0];
     }
 
     startRound(){
@@ -79,9 +81,9 @@ export class Game {
 
     restartRound(lastWinner){
         this._deck = new Deck();
-        this._jackpot = 0;
+        let lastWinnerIndex;
         this._bankPlayer = lastWinner;
-        let lastWinnerIndex = this._playersOrder.indexOf(lastWinner);
+        lastWinnerIndex = this._playersOrder.indexOf(lastWinner);
         this._playersOrder = this.restoreOrder(lastWinnerIndex);
         this._currentPlayer = this._playersOrder[0];
         this._players.forEach(player => {
@@ -113,11 +115,7 @@ export class Game {
         if(this.isBankPlayer(player)) return false;
         else{
             const current_bet = Number(bet);
-            if(player.makeBet(current_bet)) {
-                this._jackpot += current_bet;
-                return true;
-            }
-            else return false;
+            return player.makeBet(current_bet);
         }
     }
 
@@ -131,18 +129,55 @@ export class Game {
     }
 
     whoWins(){
-        let winner;
-        let maxPoints = 0;
-        this._players.forEach(player => {
-            let playerHandValue = player.handValue();
-            console.log("current player: "+playerHandValue);
-            console.log("current maxPoints: "+maxPoints);
-            if(playerHandValue <= 7.5 && playerHandValue > maxPoints){
-                winner = player;
-                maxPoints = playerHandValue;
-            }
-        });
-        winner.money += this._jackpot;
+        const winner = new Map();
+        winner.set("player", this._bankPlayer);
+        let bankPlayer_handValue = this._bankPlayer.handValue();
+        if(bankPlayer_handValue === 7.5) {
+            let jackpot = 0;
+            this._players.forEach(player => {
+                jackpot += player.bet;
+                this._bankPlayer.earnMoney(player.bet);
+            });
+            winner.set("jackpot", jackpot);
+        }
+        else if (bankPlayer_handValue > 7.5){
+            this._players.forEach(player => {
+                let playerHandValue = player.handValue();
+                if(playerHandValue === 7.5){
+                    winner.set("player", player);
+                    winner.set("jackpot", 2*player.bet);
+                    player.earnMoney(3*player.bet);
+                    this._bankPlayer.loseMoney(2*player.bet);
+                } 
+                else if (playerHandValue < 7.5){
+                    player.earnMoney(2*player.bet);
+                    this._bankPlayer.loseMoney(player.bet);                    
+                }
+                else {
+                    player.earnMoney(player.bet);
+                }
+            });
+        }
+        else {
+            this._players.forEach(player => {
+                let playerHandValue = player.handValue();
+                if(playerHandValue <= 7.5 && playerHandValue > bankPlayer_handValue){
+                    if(playerHandValue === 7.5){
+                        winner.set("player", player);
+                        winner.set("jackpot", 2*player.bet);
+                        player.earnMoney(3*player.bet);
+                        this._bankPlayer.loseMoney(2*player.bet);
+                    } 
+                    else {
+                        player.earnMoney(2*player.bet);
+                        this._bankPlayer.loseMoney(player.bet);  
+                    }
+                }
+                else {
+                    this._bankPlayer.earnMoney(player.bet);
+                }
+            });
+        }
         return winner;
     }
 }

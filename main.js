@@ -11,14 +11,25 @@ const numPlayers = document.getElementById("numPlayers");
 const playerMoney = document.getElementById("playerMoney");
 const startGameButton = initScreen.querySelector("#startGameButton");
 
+const restartGameButton = document.getElementById("restartGameButton");
+const helpButton = document.getElementById("helpButton");
+
 const scene = document.getElementById("scene");
 
-const modal = document.getElementById("modal");
-const modalTitle = modal.querySelector("#modalTitle");
-const modalText = modal.querySelector("#modalText");
-const modalButton1 = modal.querySelector("#modalButton1");
-const modalButton2 = modal.querySelector("#modalButton2");
-const modalButton3 = modal.querySelector("#modalButton3");
+const modalGame = document.getElementById("modalGame");
+const modalGameContent = modalGame.querySelector(".modal-content");
+const modalGameTitle = modalGame.querySelector("#modalTitle");
+const modalGameText = modalGame.querySelector("#modalText");
+const modalGameButton1 = modalGame.querySelector("#modalButton1");
+const modalGameButton2 = modalGame.querySelector("#modalButton2");
+const modalGameButton3 = modalGame.querySelector("#modalButton3");
+const modalGameButton4 = modalGame.querySelector("#modalButton4");
+const modalGameButton5 = modalGame.querySelector("#modalButton5");
+
+const modalHelp = document.getElementById("modalHelp");
+const modalHelpContent = modalHelp.querySelector(".modal-content");
+const modalHelpButton1 = modalHelp.querySelector("#modalButton6");
+const modalHelpButton2 = modalHelp.querySelector("#modalButton7");
 
 const deck = document.getElementById("deck");
 const userHand = document.getElementById("user_hand");
@@ -39,38 +50,92 @@ function startGame() {
     }, 500);
 }
 
-modalButton1.addEventListener("click", nextTorn);
+restartGameButton.addEventListener("click", showModalRestartGame);
+
+function showModalRestartGame() {
+    modalGame.style.display = "block";
+    modalGameTitle.textContent = "Reiniciar la partida?"
+    modalGameText.textContent = `Estàs segur que vols reiniciar la partida?`;
+    modalGameButton1.classList.add("hide-content");
+    modalGameButton4.classList.remove("hide-content");
+    modalGameButton5.classList.remove("hide-content");
+}
+
+helpButton.addEventListener("click", showModalHelp);
+
+function showModalHelp() {
+    modalHelp.style.display = "block";
+}
+
+modalGameButton1.addEventListener("click", nextTorn);
 
 function nextTorn() {
     if(game.nextPlayer()) {
-        modal.style.display = "none";
+        modalGame.style.display = "none";
         renderGame();
     } else {
         lastWinner = game.whoWins();
-        modalTitle.textContent = `El jugador ${lastWinner.id} ha guanyat la ronda`;
-        modalText.textContent = `Amb un total de ${lastWinner.handValue()} punts, s'emporta un pot de ${game.jackpot}!`;
-        modalButton1.classList.add("hide-content");
-        modalButton2.classList.remove("hide-content");
+        renderGame();
+        if(lastWinner.get("jackpot") === undefined){
+            modalGameContent.classList.add("no-winner");
+            modalGameTitle.textContent = `S'ha acabt la ronda`;
+            modalGameText.textContent = `Ningú ha aconseguit el 7 i mig. Les apostes ja han estat remoneritzades. A la seguent ronda el jugador ${lastWinner.get("player").id} seguirà fent de banca.`;
+        }
+        else {
+            modalGameContent.classList.add("game-winner");
+            modalGameTitle.textContent = `El jugador ${lastWinner.get("player").id} ha guanyat la ronda!`;
+            modalGameText.textContent = `Amb un total de 7,5 punts, s'emporta un pot de ${lastWinner.get("jackpot")}!`;
+        }
+        modalGameButton1.classList.add("hide-content");
+        modalGameButton2.classList.remove("hide-content");
     }
 }
 
-modalButton2.addEventListener("click", restartRound);
+modalGameButton2.addEventListener("click", restartRound);
 
 function restartRound() {
-    modal.style.display = "none";
-    modalButton1.classList.remove("hide-content");
-    modalButton2.classList.add("hide-content");
-    game.restartRound(lastWinner);
+    modalGame.style.display = "none";
+    modalGameContent.classList.remove("game-winner");
+    modalGameButton1.classList.remove("hide-content");
+    modalGameButton2.classList.add("hide-content");
+    game.restartRound(lastWinner.get("player"));
 
     renderGame();
 }
 
-modalButton3.addEventListener("click", closeModal);
+modalGameButton3.addEventListener("click", closeModalGame);
+modalGameButton4.addEventListener("click", closeModalGame);
 
-function closeModal() {
-    modal.style.display = "none";
-    modalButton1.classList.remove("hide-content");
-    modalButton3.classList.add("hide-content");
+function closeModalGame(event) {
+    modalGame.style.display = "none";
+    if(event.currentTarget === modalGameButton3) modalGameButton3.classList.add("hide-content");
+    else {
+        modalGameButton4.classList.add("hide-content");
+        modalGameButton5.classList.add("hide-content");
+    }
+    modalGameButton1.classList.remove("hide-content");
+}
+
+
+
+modalHelpButton1.addEventListener("click", closeModalHelp);
+modalHelpButton2.addEventListener("click", closeModalHelp);
+
+function closeModalHelp() {
+    modalHelp.style.display = "none";
+}
+
+modalGameButton5.addEventListener("click", restartGame);
+
+function restartGame() {
+    modalGame.style.display = "none";
+    modalGameButton1.classList.remove("hide-content");
+    modalGameButton4.classList.add("hide-content");
+    modalGameButton5.classList.add("hide-content");
+    game.restartGame();
+    console.log(game);
+    game.startRound();
+    renderGame();
 }
 
 const askCard_button = document.getElementById("askCard_button");
@@ -93,11 +158,11 @@ function askCard(){
         askCard_button.disabled = true;
         deck.classList.add("disabled");
         game.currentPlayer.setAllCardsVisible();
-        modal.style.display = "block";
+        modalGame.style.display = "block";
         if(game.isBankPlayer(game.currentPlayer)) nextTorn();
         else {
-            modalTitle.textContent = "¡T'has pasat!"
-            modalText.textContent = `El jugador ${game.currentPlayer.id} ha superat el 7,5. És el torn del seguent jugador.`;
+            modalGameTitle.textContent = "¡T'has pasat!"
+            modalGameText.textContent = `El jugador ${game.currentPlayer.id} ha superat el 7,5. És el torn del seguent jugador.`;
         }
     }
     renderGame();
@@ -121,11 +186,11 @@ function showCard(){
 stand_button.addEventListener("click", stand);
 
 function stand(){
-    modal.style.display = "block";
+    modalGame.style.display = "block";
     if(game.isBankPlayer(game.currentPlayer)) nextTorn();
     else {
-        modalTitle.textContent = "¡T'has plantat!"
-        modalText.textContent = `El jugador ${game.currentPlayer.id} s'ha plantat. És el torn del seguent jugador.`;
+        modalGameTitle.textContent = "¡T'has plantat!"
+        modalGameText.textContent = `El jugador ${game.currentPlayer.id} s'ha plantat. És el torn del seguent jugador.`;
     }
 }
 
@@ -140,11 +205,11 @@ function bet(){
         deck.classList.remove("disabled");
     }
     else{
-        modal.style.display = "block";
-        modalTitle.textContent = "No tens prous diners!"
-        modalText.textContent = `La teva aposta és superior als teus diners. Actualment disposes de ${game.currentPlayer.money} punts en fitxes. La teva aposta no pot superar aquesta quantitat.`;
-        modalButton1.classList.add("hide-content");
-        modalButton3.classList.remove("hide-content");
+        modalGame.style.display = "block";
+        modalGameTitle.textContent = "No tens prous diners!"
+        modalGameText.textContent = `La teva aposta és superior als teus diners. Actualment disposes de ${game.currentPlayer.money} punts en fitxes. La teva aposta no pot superar aquesta quantitat.`;
+        modalGameButton1.classList.add("hide-content");
+        modalGameButton3.classList.remove("hide-content");
     }
 }
 
