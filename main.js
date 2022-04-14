@@ -1,20 +1,50 @@
 import { Game } from "./model/game";
-
-const bastos = document.createElementNS("./src/images/oros.svg", "svg");
-const espases = document.createElementNS("./src/images/oros.svg", "svg");
-const copes = document.createElementNS("./src/images/oros.svg", "svg");
+import { Deck } from "./model/deck";
 
 let game, lastWinner;
 
+/* -------------- INIT SCREEN ---------------- */
+
 const initScreen = document.getElementById("initScreen");
-const numPlayers = document.getElementById("numPlayers");
-const playerMoney = document.getElementById("playerMoney");
+const cardsAnimationList = initScreen.querySelector("#cards_animation_list");
+const numPlayers = initScreen.querySelector("#numPlayers");
+const playerMoney = initScreen.querySelector("#playerMoney");
 const startGameButton = initScreen.querySelector("#startGameButton");
+
+/* ------------------------------------------- */
+
+/* -------------- MENU BUTTONS --------------- */
 
 const restartGameButton = document.getElementById("restartGameButton");
 const helpButton = document.getElementById("helpButton");
 
+/* ------------------------------------------- */
+
+/* -------------- GAME SCREEN ---------------- */
+
 const scene = document.getElementById("scene");
+const deck = scene.querySelector("#deck");
+const userHand = scene.querySelector("#user_hand");
+const leftHand = scene.querySelector("#left_player_hand");
+const rightHand = scene.querySelector("#right_player_hand");
+const frontHand = scene.querySelector("#front_player_hand");
+
+    /* ------------------ GAME UI ----------------- */
+
+const userComands = document.getElementById("user_comands");
+const askCard_button = userComands.querySelector("#askCard_button");
+const showCard_button = userComands.querySelector("#showCard_button");
+const userPoints = userComands.querySelector("#user_points");
+const userName = userComands.querySelector("#user_name");
+const stand_button = userComands.querySelector("#stand_button");
+const acumulator_bet = userComands.querySelector("#acumulator_bet");
+const money_left = userComands.querySelector("#money_left");
+const current_bet = userComands.querySelector("#current_bet");
+const bet_button = userComands.querySelector("#bet_button");
+
+    /* ------------------------------------------- */
+
+    /* ----------------- MODALS ------------------ */
 
 const modalGame = document.getElementById("modalGame");
 const modalGameContent = modalGame.querySelector(".modal-content");
@@ -27,18 +57,15 @@ const modalGameButton4 = modalGame.querySelector("#modalButton4");
 const modalGameButton5 = modalGame.querySelector("#modalButton5");
 
 const modalHelp = document.getElementById("modalHelp");
-const modalHelpContent = modalHelp.querySelector(".modal-content");
 const modalHelpButton1 = modalHelp.querySelector("#modalButton6");
 const modalHelpButton2 = modalHelp.querySelector("#modalButton7");
 
-const deck = document.getElementById("deck");
-const userHand = document.getElementById("user_hand");
-const leftHand = document.getElementById("left_player_hand");
-const rightHand = document.getElementById("right_player_hand");
-const frontHand = document.getElementById("front_player_hand");
+    /* ------------------------------------------- */
+
+/* ------------------------------------------- */
 
 startGameButton.addEventListener("click", startGame);
-
+// This function strarts the game. It's called when the user click on the *INICIAR PARTIDA* button on the InitScreen
 function startGame() {
     game = new Game(numPlayers.value, Number(playerMoney.value));
 
@@ -51,7 +78,7 @@ function startGame() {
 }
 
 restartGameButton.addEventListener("click", showModalRestartGame);
-
+// This function shows the Modal Game and ask user to confirm the restart of the game. It's called when the user click on the *NOVA PARTIDA* button on the top bar menu.
 function showModalRestartGame() {
     modalGame.style.display = "block";
     modalGameTitle.textContent = "Reiniciar la partida?"
@@ -61,15 +88,28 @@ function showModalRestartGame() {
     modalGameButton5.classList.remove("hide-content");
 }
 
-helpButton.addEventListener("click", showModalHelp);
+modalGameButton5.addEventListener("click", restartGame);
+// This restart the game. It's called when the user click on the *ACEPTAR* button on the Modal Game.
+function restartGame() {
+    modalGame.style.display = "none";
+    modalGameButton1.classList.remove("hide-content");
+    modalGameButton4.classList.add("hide-content");
+    modalGameButton5.classList.add("hide-content");
+    game.restartGame();
+    console.log(game);
+    game.startRound();
+    renderGame();
+}
 
+helpButton.addEventListener("click", showModalHelp);
+// This function shows the Modal Help that contins the instructions of the game. It's called when the user click on the *COM ES JUGA?* button on the top bar menu.
 function showModalHelp() {
     modalHelp.style.display = "block";
 }
 
-modalGameButton1.addEventListener("click", nextTorn);
-
-function nextTorn() {
+modalGameButton1.addEventListener("click", nextTurn);
+// This function change the current palyer and if the round is finished, shows the Modal Game with the result of the round.
+function nextTurn() {
     if(game.nextPlayer()) {
         modalGame.style.display = "none";
         renderGame();
@@ -92,7 +132,7 @@ function nextTorn() {
 }
 
 modalGameButton2.addEventListener("click", restartRound);
-
+// This function starts a new round. It's called when the user click on the *COMENÇAR UNA NOVA RONDA* button on the Modal Game.
 function restartRound() {
     modalGame.style.display = "none";
     modalGameContent.classList.remove("game-winner");
@@ -105,7 +145,7 @@ function restartRound() {
 
 modalGameButton3.addEventListener("click", closeModalGame);
 modalGameButton4.addEventListener("click", closeModalGame);
-
+// This function close the Modal Game.
 function closeModalGame(event) {
     modalGame.style.display = "none";
     if(event.currentTarget === modalGameButton3) modalGameButton3.classList.add("hide-content");
@@ -116,42 +156,16 @@ function closeModalGame(event) {
     modalGameButton1.classList.remove("hide-content");
 }
 
-
-
 modalHelpButton1.addEventListener("click", closeModalHelp);
 modalHelpButton2.addEventListener("click", closeModalHelp);
-
+// This function close the Modal Help.
 function closeModalHelp() {
     modalHelp.style.display = "none";
 }
 
-modalGameButton5.addEventListener("click", restartGame);
-
-function restartGame() {
-    modalGame.style.display = "none";
-    modalGameButton1.classList.remove("hide-content");
-    modalGameButton4.classList.add("hide-content");
-    modalGameButton5.classList.add("hide-content");
-    game.restartGame();
-    console.log(game);
-    game.startRound();
-    renderGame();
-}
-
-const askCard_button = document.getElementById("askCard_button");
-const showCard_button = document.getElementById("showCard_button");
-const userPoints = document.getElementById("user_points");
-const userName = document.getElementById("user_name");
-const stand_button = document.getElementById("stand_button");
-const acumulator_bet = document.getElementById("acumulator_bet");
-const money_left = document.getElementById("money_left");
-const current_bet = document.getElementById("current_bet");
-const bet_button = document.getElementById("bet_button");
-
 deck.addEventListener("dblclick", askCard);
-
 askCard_button.addEventListener("click", askCard);
-
+// This function ask a card for the current player. If his hand value is gretter than 7.5, the fucntion shows the Modal Game with a message.
 function askCard(){
     game.dealCard(game.currentPlayer);
     if(game.currentPlayer.handValue() > 7.5) {
@@ -159,7 +173,7 @@ function askCard(){
         deck.classList.add("disabled");
         game.currentPlayer.setAllCardsVisible();
         modalGame.style.display = "block";
-        if(game.isBankPlayer(game.currentPlayer)) nextTorn();
+        if(game.isBankPlayer(game.currentPlayer)) nextTurn();
         else {
             modalGameTitle.textContent = "¡T'has pasat!"
             modalGameText.textContent = `El jugador ${game.currentPlayer.id} ha superat el 7,5. És el torn del seguent jugador.`;
@@ -169,12 +183,11 @@ function askCard(){
 }
 
 showCard_button.addEventListener("click", showCard);
-
+// This function flip the card selected and show it to all players.
 function showCard(){
     const card = userHand.querySelector(".selected");
     const card_content = card.querySelector(".card-content");
     const child = card_content.firstElementChild;
-    console.log(child.getAttribute("suit"));
     game.currentPlayer.setCardVisible(child.getAttribute("suit"), Number(child.getAttribute("number")));
     card.classList.remove("selected");
     card.classList.add("visible");
@@ -184,10 +197,10 @@ function showCard(){
 }
 
 stand_button.addEventListener("click", stand);
-
+// This function stand the player game and shows the Modal Game.
 function stand(){
     modalGame.style.display = "block";
-    if(game.isBankPlayer(game.currentPlayer)) nextTorn();
+    if(game.isBankPlayer(game.currentPlayer)) nextTurn();
     else {
         modalGameTitle.textContent = "¡T'has plantat!"
         modalGameText.textContent = `El jugador ${game.currentPlayer.id} s'ha plantat. És el torn del seguent jugador.`;
@@ -195,7 +208,7 @@ function stand(){
 }
 
 bet_button.addEventListener("click", bet);
-
+// This function make a bet with the quantity introduced in the input. If the player doesn't have enough money, the function shows the Modal Game qith a message.
 function bet(){
     if(game.makeBet(game.currentPlayer, current_bet.value)) {
         acumulator_bet.value = game.currentPlayer.bet;
@@ -213,32 +226,27 @@ function bet(){
     }
 }
 
+// This function render the content of a Card.
 const renderCardContent = (card) => {
     const div = document.createElement("div");
     const suiteIcon = document.createElement("img");
+    suiteIcon.setAttribute("suit", card.suit);
+    suiteIcon.setAttribute("number", card.number);
     switch (card.number) {
         case 1:
             suiteIcon.src = `./src/images/as_${card.suit}.svg`;
-            suiteIcon.setAttribute("suit", card.suit);
-            suiteIcon.setAttribute("number", card.number);
             div.append(suiteIcon);
             break;
         case 10:
             suiteIcon.src = `./src/images/sota_${card.suit}.svg`;
-            suiteIcon.setAttribute("suit", card.suit);
-            suiteIcon.setAttribute("number", card.number);
             div.append(suiteIcon);
             break;
         case 11:
             suiteIcon.src = `./src/images/cavall_${card.suit}.svg`;
-            suiteIcon.setAttribute("suit", card.suit);
-            suiteIcon.setAttribute("number", card.number);
             div.append(suiteIcon);
             break;
         case 12:
             suiteIcon.src = `./src/images/rei_${card.suit}.svg`;
-            suiteIcon.setAttribute("suit", card.suit);
-            suiteIcon.setAttribute("number", card.number);
             div.append(suiteIcon);
             break;
         default:
@@ -257,10 +265,18 @@ const renderCardContent = (card) => {
     return div;
 }
 
-const renderUserCard = (card) => {
+// This function render the content of a Card that can only be visible.
+const renderVisibleCard = (card) => {
     const li = document.createElement("li");
     li.classList.add("card");
     const div = document.createElement("div");
+    div.append(renderFrontCard(card));
+    li.append(div);
+    return li;
+}
+
+// This function render the front face of the content of a Card.
+const renderFrontCard = (card) => {
     const front = document.createElement("div");
     front.setAttribute("suit", card.suit);
     const div2 = document.createElement("div");
@@ -269,7 +285,7 @@ const renderUserCard = (card) => {
         borderDiv.classList.add("card-border");
         div2.append(borderDiv);
     }
-
+    
     const spanTop = document.createElement("span");
     spanTop.textContent = card.number;
 
@@ -283,7 +299,11 @@ const renderUserCard = (card) => {
     div2.append(spanTop, divMiddle, spanBottom);
     front.append(div2);
     front.classList.add("front");
+    return front;
+}
 
+// This function render the back face of the content of a Card.
+const renderBackCard = () => {
     const back = document.createElement("div");
     const div3 = document.createElement("div");
     const img = document.createElement("img");
@@ -291,12 +311,21 @@ const renderUserCard = (card) => {
     div3.append(img);
     back.append(div3);
     back.classList.add("back");
+    return back;
+}
+
+// This function render a Card of the current player. If card is visible, it only render the front face (with the card suit and number), else, it renders the two faces (the front and the back).
+// If the Card is not visible, it can be flipped and selectable.
+const renderUserCard = (card) => {
+    const li = document.createElement("li");
+    li.classList.add("card");
+    const div = document.createElement("div");
     if(card.isVisible()) {
-        div.append(front);
+        div.append(renderFrontCard(card));
         li.classList.add("visible");
     } 
     else {
-        div.append(front, back);
+        div.append(renderFrontCard(card), renderBackCard());
         div.classList.add("flipped");
         li.addEventListener("click", selectCard);
     }
@@ -309,48 +338,26 @@ function selectCard(event){
     showCard_button.disabled = !showCard_button.disabled;
 }
 
-const renderOponentCard = (card) => {
-    const li = document.createElement("li");
-    li.classList.add("card");
-    const div = document.createElement("div");
-    if(card.isVisible()){
-        const front = document.createElement("div");
-        front.setAttribute("suit", card.suit);
-        const div2 = document.createElement("div");
-        if(card.suit === "bastos") {
-            const borderDiv = document.createElement("div");
-            borderDiv.classList.add("card-border");
-            div2.append(borderDiv);
-        }
-    
-        const spanTop = document.createElement("span");
-        spanTop.textContent = card.number;
-    
-        const divMiddle = document.createElement("div");
-        divMiddle.append(renderCardContent(card));
-        divMiddle.classList.add("card-content")
-    
-        const spanBottom = document.createElement("span");
-        spanBottom.textContent = card.number;
-    
-        div2.append(spanTop, divMiddle, spanBottom);
-        front.append(div2);
-        front.classList.add("front");
 
-        div.append(front);
-    }
+// This function render a Card of the current player. If card is visible, it only render the front face (with the card suit and number), else, it renders the two faces (the front and the back).
+const renderOponentCard = (card) => {
+    if(card.isVisible()) return renderVisibleCard(card);
     else {
-        const div4 = document.createElement("div");
+        const li = document.createElement("li");
+        li.classList.add("card");
+        const div = document.createElement("div");
+        const div1 = document.createElement("div");
         const img = document.createElement("img");
         img.src = "./src/images/revers.svg";
-        div4.append(img);
-        div.append(div4);
+        div1.append(img);
+        div.append(div1);
         div.classList.add("hidden");
+        li.append(div);
+        return li;
     }
-    li.append(div);
-    return li;
 }
 
+// This function render a the deck of the game.
 const renderDeck = (card, i) => {
     const li = document.createElement("li");
     const div = document.createElement("div");
@@ -363,9 +370,10 @@ const renderDeck = (card, i) => {
     return li;
 }
 
+// This function render the the game.
 const renderGame = () => {
     deck.textContent = "";
-    userHand.textContent = ""; //Borra interior del userHand
+    userHand.textContent = "";
     leftHand.textContent = "";
     rightHand.textContent = "";
     frontHand.textContent = "";
@@ -427,5 +435,10 @@ const renderGame = () => {
 }
 
 
-
-
+window.onload = function() {
+    let listCardAnimation = new Deck();
+    listCardAnimation.shuffle();
+    for(let i = 0; i < 8; i++){
+        cardsAnimationList.appendChild(renderVisibleCard(listCardAnimation.cards[i]));
+    }
+};

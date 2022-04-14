@@ -27,6 +27,9 @@
     </header>
     <main>
       <div id="initScreen">
+        <div id="cards_animation_container">
+          <ul id="cards_animation_list"></ul>
+        </div>
         <img id="logo" src="./src/images/logo.svg" alt="Logo del joc">
         <div id="settingsContainer">
             <div id="settingsInput">
@@ -52,10 +55,8 @@
         <div class="game-title">
           <h1>7 i mig</h1>
         </div>
-        <div id="table">
-        </div>
-        <div id="board">
-        </div>
+        <div id="table"></div>
+        <div id="board"></div>
         <div id="user_board">
           <ul id="user_hand"></ul>
         </div>
@@ -69,8 +70,7 @@
           <ul id="front_player_hand"></ul>
         </div>
         <div class="deck tooltip" >
-          <ul id="deck">
-          </ul>
+          <ul id="deck"></ul>
           <span class="tooltip-text">Demanar carta</span>
         </div>
       </div>
@@ -85,7 +85,7 @@
             <div class="background-points"></div>
             <div id="user_points"></div>
           </div>
-          <button id="stand_button">Plantarse</button>
+          <button id="stand_button">Plantar-se</button>
         </div>
         <div id="bet_container">
           <div>
@@ -128,48 +128,37 @@
           <div class="modal-body">
             <h3>Descripció:</h3>
             <p id="modalText">
-              Es tracta d'un joc de baralla espanyola de 40 cartes, anomenat indistintament set i mig o set i mitja.
-            </p>
-            <h3>Objectiu del joc:</h3>
-            <p id="modalText">
-              És un joc d'apostes, generalment amb petites quantitats de diners. L'objectiu és simplement intentar guanyar les apostes plantejades a cada mà. La finalització de la partida depèn de la decisió de cada jugador de continuar-hi, ja que la partida en si mateixa no té un final definit.
+              El set i mig és un joc de cartes clàssic de la baralla espanyola. Es tracta d'un joc d'apostes, on l'objectiu és simplement intentar guanyar les apostes plantejades a cada mà.
             </p>
             <p>
-              A cadascuna de les mans o apostes cada jugador competeix contra la banca; l'objectiu és intentar sumar set i mig o el nombre més proper possible, sense sobrepassar aquesta quantitat.
+              A cadascuna de les mans o apostes cada jugador competeix contra la banca; l'objectiu és intentar sumar set i mig o el nombre més proper possible, sense sobrepassar aquesta xifra.
             </p>
             <h3>Valor de les cartes:</h3>
             <p id="modalText">
-              Als efectes de sumar cada jugador els desitjats set i mig, cada carta té, indistintament del seu pal, el valor que indica el seu propi índex, llevat de les dotze figures (sota, cavall i rei) que tenen un valor de mig punt.
+              Cada carta té, indistintament del seu pal, el valor que indica el seu propi número, llevat de les dotze figures (sota, cavall i rei) que tenen un valor de mig punt.
             </p>
             <h3>Desenvolupament del joc</h3>
             <b>Començament de la partida i de cadascuna de les mans</b>
             <p id="modalText">
-              Per sorteig es decideix qui és el jugador que començarà tenint la banca, que serà qui reparteix. La banca reparteix una carta a cadascun dels jugadors, incloent-hi ella mateixa.
+              Per sorteig es decideix qui és el jugador que començarà fent de banca, que serà qui reparteix. La banca reparteix una carta a cadascun dels jugadors, incloent-hi ella mateixa.
             </p>
             <b>L'aposta del jugador</b>
             <p id="modalText">
               Per torns, de dreta a esquerra, començant pel jugador situat a la dreta de la banca, cada jugador realitza dues accions:
             </p>
             <ul> 
-              <li>En primer lloc heu de fer la vostra aposta, generalment dins d'un rang prèviament fixat.</li>
-              <li>Seguidament heu de decidir si voleu rebre més cartes de la baralla. Si no ho desitja cal indicar-ho dient que es planta. Si, per contra, desitja cartes per intentar acostar-se el més possible a sumar set i mig, podrà demanar totes les que vulgui d'una en una podent-se plantar quan vulgui.</li>
+              <li>En primer lloc heu de fer la vostra aposta. El jugador pot introduïr la quantitat apostada i validar l'aposta a través del botó <button>Apostar</button></li>
+              <li>Seguidament heu de decidir si voleu rebre més cartes de la baralla o plantar-se. Si el jugador desitja cartes per intentar acostar-se el més possible a sumar set i mig, podrà demanar totes les que vulgui, sempre i quan faci una aposta abans, i no s'hagi passat del set i mig. El jugador podrà demanar la carta a través del botó <button>Demanar carta</button> o fent doble click a la baralla de cartes. El jugador es podrà plantar quan vulgui utilitzant el botó <button>Plantar-se</button>.</li>
             </ul>
             <p>
-              El jugador que està rebent cartes podrà mantenir sobre la taula una única carta de cap per avall, mantenint així sempre la seva jugada en secret. Per tant, cada cop que demana una nova carta, ha de decidir entre aquestes dues opcions:
+              El jugador que està rebent cartes podrà mantenir sobre la taula una única carta de cap per avall, mantenint així sempre la seva jugada en secret. Com s'ha mencionat en l'apartat de *Començament de la partida*, la banca reparteix a cada jugador un carta cap per avall, i a partir d'aqui, repartirà totes les cartes destapades a no se que el jugador decideixi mostrar la carta girada. Per fer-ho només s'ha de seleccionar la carta i apretar el botó <button>Mostrar Carta</button>.
             </p>
-            <ol>
-              <li>Demanar la carta de cara amunt.</li>
-              <li>Demanar la carta de cap per avall, i en aquest cas ha de col·locar de cara amunt la carta que tingués oculta anteriorment.</li>
-            </ol>
             <p>
               Si en el seu torn un jugador es passés del set i mig, ha de mostrar totes les cartes i perd immediatament la seva aposta.            
             </p>
             <b>Juga la banca</b>
             <p id="modalText">
-              Un cop hagin fet les apostes tots els jugadors, arriba el torn a la banca. Si quedés algun jugador que no s'hagués passat de set i mig, i per tant encara està en condicions de poder guanyar la seva aposta, la banca procedirà alhora a jugar.
-            </p>
-            <p>
-              La banca no fa apostes, simplement rep les dels jugadors, i juga com els altres jugadors, plantant-se (si creu que així guanya a tots o alguns dels jugadors que queden) o donant-se cartes, d'una en una, però amb totes les seves cartes panxa enlaire fins a decidir plantar-se.
+              Un cop hagin fet les apostes tots els jugadors, arriba el torn a la banca. La banca no fa apostes, simplement rep les dels jugadors, i juga com els altres jugadors, plantant-se (si creu que així guanya a tots o alguns dels jugadors que queden) o donant-se cartes, d'una en una, però amb totes les seves cartes destapades fins a decidir plantar-se.
             </p>
             <b>Cobrar les apostes</b>
             <p id="modalText">
@@ -191,7 +180,6 @@
         </div>
       </div>
     </main>
-    <div id="app"></div>
     <script type="module" src="/main.js"></script>
   </body>
 </html>
